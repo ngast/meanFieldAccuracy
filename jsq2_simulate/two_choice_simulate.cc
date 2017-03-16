@@ -180,8 +180,8 @@ int main(int argc, char ** argv) {
   }
   time_t t;
   time(&t);
-  //mt_rand.seed(t+N);
-  mt_rand.seed(2);
+  mt_rand.seed(t+N);
+  //mt_rand.seed(2);
 
   //std::cerr << q <<"\n";
   if (only_print_one_trajectory){
