@@ -1136,8 +1136,11 @@ is that we treat directly the infinite-dimensional system.
 To work in the infinite-dimensional case, the main technical
 difficulty for applying our approach is to show that
 $\sProba{\snorm{\XN}\ge B}=O(1/N^2)$. In our proof of
-Theorem~\ref{th:two-choice}, we prove it by using a large-deviation
-result from \cite{luczak2007asymptotic}.
+Theorem~\ref{th:two-choice}, we prove it by using a coupling to bound
+the process by a system of $N$ independent $M/M/1$ queues. We then
+show in Lemma~\ref{lem:concentration} the sum of $N$ independent
+variables have a third moment and therefore concentrate on a bounded
+set at rate $O(1/N^2)$.  
 
 
 \subsection{Numerical Evaluation}
@@ -1759,7 +1762,7 @@ satisfies
 \end{equation}
 where $\pi_i=\rho^{2^i-1}$ is the fixed point of the ODE. 
 
-Let $a=\rho^{-1/12}$ 
+Let $a=\rho^{-1/4}$ 
 and let us show that there exists a sequence
 $(w_i)$ and a constant $\delta>0$ that satisfy \eqref{eq:w_i} and such
 that $w_i=O(a^i)$.
@@ -1789,72 +1792,156 @@ $\delta=\min(\delta^*,(a-1)(b-a)/(ab))$.  For $i>i^*$, we have
 this shows that $w_i$ satisfies \eqref{eq:w_i} for
 $\delta=\min(\delta^*,(b-a)(a-1)/(ab))>0$. 
 
-The sequence $w$ defined above satisfies $w_i\le c a^i$. This implies
-that $\sum_{j=1}^i w_i\le c' a^i$, where $c'=ca/(a-1)$. Hence, to show
-(A3) we need to show that there exists a constant $B$ such that
-$\sProba{\sum_{i=0}^\infty a^i\XN_i\ge B}=O(1/N^2)$.
+
+% Hence, to show (A3) we need to show that there exists a constant $B$
+% such that $\sProba{\sum_{i=0}^\infty a^i\XN_i\ge B}=O(1/N^2)$.
+
+According to \cite[Theorem~4]{turner1998effect} (see also
+\cite[Theorem~4.1]{graham2000chaoticity}), there exists a coupling
+between $\XN$ and a variable $\tilde{\XN}$ picked according to the
+stationary distribution of $N$ independent M/M/1 queues such that for
+all $j$, $\sum_{i=j}^\infty\XN_i$ is stochastically smaller that
+$\sum_{i=j}^\infty\XtN_i$. As the sequence $w$ is increasing, this
+implies that $\snorm{\XN}_w$ is stochastically smaller than
+$\snorm{\XtN}_w$.
+
+%  A natural
+% coupling argument\footnote{Consider the partial order
+%   $x\preceq \tilde{x}$ if and only if $x_i\le \tilde{x}_i$ for all
+%   $i\ge1$. By coupling the arrivals and departures in a two-choice
+%   model $\XN$ and in a one-choice model $\XtN$ (\emph{i.e.} $N$
+%   independent M/M/1 queues), the trajectories satisfy
+%   $\XN\preceq\XtN$. Hence, there exist a coupling of the variables
+%   $\XN$ and $\XtN$ such that $\XN$ and $\XtN$ are always comparable
+%   and $\XN\preceq\XtN$.}
+% shows that $\XN$ is component-wise bounded
+% by a variable $\tilde{\XN}$ that is picked according to the stationary
+% distribution of $N$ independent M/M/1 queues. 
+In stationary regime, the quantity $\XtN$ can be written as
+$\XtN_i=(1/N)\sum_{n=1}^N1_{\tilde{Z}_n\ge i}$ where the variables
+$\tilde{Z}_n$ are \emph{i.i.d.} and are geometrically distributed with
+parameter $\rho$. The sequence $w$ defined above satisfies
+$w_i\le c a^i$. This implies that $\sum_{j=1}^i w_i\le c' a^i$, where
+$c'=ca/(a-1)$.  Therefore, in the stationary regime, we have
+\begin{align*}
+  %\label{eq:XN-le-tilde}
+  \norm{\XN}_w\le\norm{\tilde \XN}_w&=\frac{1}{N}\sum_{n=1}^N\sum_{i\ge0} w_i
+                                      \mathbf{1}_{\tilde{Z}_n\ge i} 
+                     % &\le c' N^-1\sum_{n=1}^N\sum_{i\ge0}
+                     % a^i\mathbf{1}_{\tilde{Z}_n=i} \\
+  \le \frac{c'}{N}\sum_{n=1}^Na^{\tilde{Z}_n},
+\end{align*}
+where $c'<\infty$ is the constant defined above.
+
+To conclude, we use the following concentration lemma that we apply
+with $\xi_n=a^{\tilde{Z}_n}$. Note that quantity
+$\esp{\norm{\xi_n}^3}=\sesp{a^{3\tilde{Z}_n}}$ is finite because
+$a<\rho^{-1/3}$ and $\tilde{Z}_n$ is geometrically distributed with
+parameter $\rho$.
+% Equation~\ref{eq:XN-le-tilde} and Lemma~\ref{lem:concentration}
+% imply that
+% \begin{align*}
+%   \esp{\norm{\XN}_w\mathbf{1}_{\norm{\XN}_w\ge B'}} \le 
+%   \esp{\norm{\tilde{\XN}}_w\mathbf{1}_{\norm{\tilde{\XN}}_w\ge B'}}
+%   \le \frac{B}{N}. 
+% \end{align*}
+
+\begin{lemma}
+  \label{lem:concentration}
+  Let $(\xi_n)$ be a sequence of \emph{i.i.d.} random variables such
+  that $\esp{\norm{\xi_n}^3}<+\infty$. Let
+  $S_N=N^{-1}\sum_{n=1}^N\xi_n$. Then there exist two finite constants
+  $B$ and $B'$ such that
+  $\esp{\norm{S_N}\mathbf{1}_{\norm{S_N}\ge B'}}\le B/N^2$.
+\end{lemma}
 
 
-Let $\alpha=-3/\log\rho=1/(4\log a)$ and let $i_N=\alpha\ln N$.
-According to \cite[Equation~5.3]{vvedenskaya1996queueing},
-$\sesp{\XN_i}\le \rho^i$. Therefore,
-\begin{align*}
-  \espN{\sum_{i=i_N+1}^{\infty} a^i \XN_i}\le
-  \frac{(a\rho)^{i_N}}{1-a\rho}=\frac{n^{\alpha \ln(a\rho)}}{1-a\rho}.
-\end{align*}
-By definition of $\alpha$, $\alpha \ln(a\rho)=-2.75$. This shows that
-$N^{\alpha \ln(a\rho)}=o(N^{-2})$.  Hence, by Markov inequality, we
-have
-\begin{align}
-  \Proba{\sum_{i=i_N+1}^{\infty} a^i \XN_i\ge \frac{1}{1-a\rho}} \le
-  n^{\alpha\ln(a\rho)} = o(N^{-2}). 
-  \label{eq:i_N}
-\end{align}
-According to \cite[Lemma~2.6]{luczak2007asymptotic}, there exists a
-constant $c$ such that 
-% (which can be derived from \cite[Lemma~4.2]{luczak2006maximum}),
-\begin{equation*}
-  \Proba{\sup_{i}\abs{\XN_i-\esp{\XN_i}}\ge cN^{-1/2}\ln N} = o(N^{-2}).
-\end{equation*}
-Summing from $i=0$ to $i_N$ implies that 
-\begin{align*}
-  \Proba{\abs{\sum_{i=0}^{i_N}a^i(\XN_i-\esp{\XN_i})}\ge
-  \sum_{i=0}^{i_N}a^icN^{-1/2}\ln N} = o(N^{-2}). 
-\end{align*}
-As $\sum_{i=0}^{i_N}a^i=(n^{\alpha\ln a}-1)/(a-1)$, we have 
-\begin{align*}
-  \Proba{\sum_{i=0}^{i_N}a^i\XN_i\ge \sum_{i=0}^{i_N}\esp{\XN_i}+
-  cN^{\alpha \ln a-1/2}\ln N} = o(N^{-2}). 
-\end{align*}
-As $\alpha \ln a=1/4\le 1/2$, the quantity
-$cN^{\alpha \ln a-1/2}\ln N$ converges to $0$ as $N$ goes to
-infinity. Moreover, let
-$\sum_{i=0}^{i_N}a^i\sesp{\XN_i}\le 1/(1-a\rho)$. This shows that for
-$N$ large enough, 
-\begin{align}
-  \Proba{\sum_{i=0}^{i_N}a^i\XN_i\ge \frac{1}{1-a\rho}+1} =
-  o(N^{-2}).
-  \label{eq:luczak}  
-\end{align}
-Combining Equation~\eqref{eq:i_N} and \eqref{eq:luczak}  shows that 
-\begin{align*}
-  \Proba{\sum_{i=0}^\infty a^i \XN_i\ge \frac{2}{1-a\rho}+1}
-  =o(N^{-2}).
-\end{align*}
-As $w_i\le c'a^i$, this implies that $\sProba{\snorm{\XN}\ge
-  c'/(1+a\rho)+2}=o(N^{-2})$ which implies (A3). 
+\begin{proof}%[of Lemma~\ref{lem:concentration}]
+  Let $\bar{\xi}_n=\xi_n-\sesp{\xi_n}$ and
+  $\bar{S}_N=S_N-\esp{S_N}=S_N-\esp{\xi_1}$. By assumption, there
+  exists a constant $B<\infty$ such that
+  $\sesp{\snorm{\bar{\xi}_n}^3}\le B$. As the variables $\bar{\xi}_n$
+  are \emph{i.i.d}, this implies that
+  $\sesp{\snorm{\bar{S}_N}^3}\le B/N^2$. This shows that
+  \begin{align*}
+    \esp{\norm{\bar{S}_N}\mathbf{1}_{\norm{\bar{S_N}}\ge1}}
+    &\le \esp{\norm{\bar{S}_N}^3\mathbf{1}_{\norm{\bar{S_N}}\ge1}}\\
+    &\le \esp{\norm{\bar{S}_N}^3}\le
+      \frac{B}{N^2}. 
+  \end{align*}
+  By taking $B'=\esp{\xi_1}+1$, we have
+  \begin{align*}
+    \esp{\norm{S_N}\mathbf{1}_{\norm{S_N}\ge B'+1}}
+    &\le
+      B'\proba{\norm{\bar{S}_N}\ge1}+\esp{\norm{\bar{S}_N}\mathbf{1}_{\norm{\bar{S_N}}\ge1}}
+    \\
+    &\le \frac{B(B'+1)}{N^2}, 
+  \end{align*}
+  where we use Markov's inequality to show that
+  $\proba{\norm{\bar{S}_N}\ge1}=\proba{\norm{\bar{S}_N}^3\ge1^3}\le
+  B/N^2$.
+\end{proof}
 
-Finally, as
-$\sum_{i=0}^{i_N}a^iX_i^{(N)}\le n^{\alpha\log(a)}/(a-1)=O(N^{1/4})$,
-Equation~\eqref{eq:luczak} shows that
-\begin{align*}
-  \esp{\sum_{i=0}^{i_N}a^i\XN_i\mathbf{1}_{\sum_{i=0}^{i_N}a^i\XN_i\ge
-  \frac{1}{1-a\rho}}} = o(N^{-7/4})=o(N^{-1}) 
-\end{align*}
-As $\esp{\sum_{i=i_N+1}^{\infty}a^i\XN_i}=O(N^{-2.75})$, this implies
-Equation~\eqref{eq:bound_2c}.
-%\newpage
+% Let $\alpha=-3/\log\rho=1/(4\log a)$ and let $i_N=\alpha\ln N$.
+% According to \cite[Equation~5.3]{vvedenskaya1996queueing},
+% $\sesp{\XN_i}\le \rho^i$. Therefore,
+% \begin{align*}
+%   \espN{\sum_{i=i_N+1}^{\infty} a^i \XN_i}\le
+%   \frac{(a\rho)^{i_N}}{1-a\rho}=\frac{n^{\alpha \ln(a\rho)}}{1-a\rho}.
+% \end{align*}
+% By definition of $\alpha$, $\alpha \ln(a\rho)=-2.75$. This shows that
+% $N^{\alpha \ln(a\rho)}=o(N^{-2})$.  Hence, by Markov inequality, we
+% have
+% \begin{align}
+%   \Proba{\sum_{i=i_N+1}^{\infty} a^i \XN_i\ge \frac{1}{1-a\rho}} \le
+%   n^{\alpha\ln(a\rho)} = o(N^{-2}). 
+%   \label{eq:i_N}
+% \end{align}
+% According to \cite[Lemma~2.6]{luczak2007asymptotic}, there exists a
+% constant $c$ such that 
+% % (which can be derived from \cite[Lemma~4.2]{luczak2006maximum}),
+% \begin{equation*}
+%   \Proba{\sup_{i}\abs{\XN_i-\esp{\XN_i}}\ge cN^{-1/2}\ln N} = o(N^{-2}).
+% \end{equation*}
+% Summing from $i=0$ to $i_N$ implies that 
+% \begin{align*}
+%   \Proba{\abs{\sum_{i=0}^{i_N}a^i(\XN_i-\esp{\XN_i})}\ge
+%   \sum_{i=0}^{i_N}a^icN^{-1/2}\ln N} = o(N^{-2}). 
+% \end{align*}
+% As $\sum_{i=0}^{i_N}a^i=(n^{\alpha\ln a}-1)/(a-1)$, we have 
+% \begin{align*}
+%   \Proba{\sum_{i=0}^{i_N}a^i\XN_i\ge \sum_{i=0}^{i_N}\esp{\XN_i}+
+%   cN^{\alpha \ln a-1/2}\ln N} = o(N^{-2}). 
+% \end{align*}
+% As $\alpha \ln a=1/4\le 1/2$, the quantity
+% $cN^{\alpha \ln a-1/2}\ln N$ converges to $0$ as $N$ goes to
+% infinity. Moreover, let
+% $\sum_{i=0}^{i_N}a^i\sesp{\XN_i}\le 1/(1-a\rho)$. This shows that for
+% $N$ large enough, 
+% \begin{align}
+%   \Proba{\sum_{i=0}^{i_N}a^i\XN_i\ge \frac{1}{1-a\rho}+1} =
+%   o(N^{-2}).
+%   \label{eq:luczak}  
+% \end{align}
+% Combining Equation~\eqref{eq:i_N} and \eqref{eq:luczak}  shows that 
+% \begin{align*}
+%   \Proba{\sum_{i=0}^\infty a^i \XN_i\ge \frac{2}{1-a\rho}+1}
+%   =o(N^{-2}).
+% \end{align*}
+% As $w_i\le c'a^i$, this implies that $\sProba{\snorm{\XN}\ge
+%   c'/(1+a\rho)+2}=o(N^{-2})$ which implies (A3). 
 
+% Finally, as
+% $\sum_{i=0}^{i_N}a^iX_i^{(N)}\le n^{\alpha\log(a)}/(a-1)=O(N^{1/4})$,
+% Equation~\eqref{eq:luczak} shows that
+% \begin{align*}
+%   \esp{\sum_{i=0}^{i_N}a^i\XN_i\mathbf{1}_{\sum_{i=0}^{i_N}a^i\XN_i\ge
+%   \frac{1}{1-a\rho}}} = o(N^{-7/4})=o(N^{-1}) 
+% \end{align*}
+% As $\esp{\sum_{i=i_N+1}^{\infty}a^i\XN_i}=O(N^{-2.75})$, this implies
+% Equation~\eqref{eq:bound_2c}.
+% %\newpage
+ 
 \section{Conclusion and discussion}
 \label{sec:conclusion}
 
