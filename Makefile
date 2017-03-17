@@ -11,6 +11,7 @@ simulator:
 	cd jsq2_simulate/ && g++ -W -Wall -O2 two_choice_simulate.cc -o simulator
 
 simulations:
-	echo "this might take a while"
-	cd jsq2_simulate/ && echo "TBD"
-	cd simu && echo "TBD2"
+	echo "\n### this might take a while ###\n"
+	cd jsq2_simulate/ && jupyter-3.5 nbconvert --execute  "Rate of convergence two choice.ipynb"
+	cd simu && jupyter-3.5 nbconvert --execute --ExecutePreprocessor.timeout=-1 mean_field_error_simulation_1D.ipynb
+
