@@ -47,15 +47,18 @@
 \newcommand\calA{\mathcal{A}}
 \newcommand\calN{\mathcal{N}}
 \newcommand\floor[1]{\left\lfloor#1\right\rfloor}
-\newcommand\esp[1]{\mathbf{E}\left[#1\right]}
 \newcommand\var[1]{\mathrm{var}\left[#1\right]}
 \newcommand\svar[1]{\mathrm{var}[#1]}
-\newcommand\sesp[1]{\mathbf{E}[#1]}
-\newcommand\espN[1]{\mathbf{E}^{(N)}\left[#1\right]}
+\newcommand\esp[1]{\mathchoice{\besp{#1}}{\sesp{#1}}{\sesp{#1}}{\sesp{#1}}}
+\newcommand\besp[1]{\mathbb{E}\left[#1\right]}
+\newcommand\sesp[1]{\mathbb{E}[#1]}
+\newcommand\espN[1]{\mathchoice{\bespN{#1}}{\sespN{#1}}{\sespN{#1}}{\sespN{#1}}}
+\newcommand\bespN[1]{\mathbf{E}^{(N)}\left[#1\right]}
 \newcommand\sespN[1]{\mathbf{E}^{(N)}[#1]}
 \newcommand\Proba[1]{\mathbf{P}\left[#1\right]}
 \newcommand\sProba[1]{\mathbf{P}[#1]}
-\newcommand\norm[1]{\left\|#1\right\|}
+\newcommand\norm[1]{\mathchoice{\bnorm{#1}}{\snorm{#1}}{\snorm{#1}}{\snorm{#1}}}
+\newcommand\bnorm[1]{\left\|#1\right\|}
 \newcommand\snorm[1]{\|#1\|}
 \newcommand\norminf[1]{\left\|#1\right\|_{\infty}}
 \newcommand\abs[1]{\left|#1\right|}
@@ -67,7 +70,6 @@
 \newcommand\p[1]{\left(#1\right)}
 \newcommand\bbm{\mathbf{m}}
 \DeclareMathOperator*{\argmin}{arg\,min}
-\newcommand\expect[1]{\mathbb{E}\left[#1\right]}
 \newcommand\proba[1]{\mathbb{P}\left(#1\right)}
 
 \newcommand\myComment[1]{ \pdfmargincomment[color=red]{#1}}
@@ -1789,8 +1791,8 @@ $\delta=\min(\delta^*,(a-1)(b-a)/(ab))$.  For $i>i^*$, we have
   &\qquad= (a-b)\p{1-\frac1a} w_i + \delta b w_i \\
   &\qquad= \p{\frac{(a-b)(a-1)}{a} + \delta b} w_i,
 \end{align*}
-this shows that $w_i$ satisfies \eqref{eq:w_i} for
-$\delta=\min(\delta^*,(b-a)(a-1)/(ab))>0$. 
+this shows that $w_i$ satisfies Equation~\eqref{eq:w_i} for
+$\delta=\min(\delta^*,(b-a)(a-1)/(ab))>0$.
 
 
 % Hence, to show (A3) we need to show that there exists a constant $B$
@@ -1800,10 +1802,17 @@ According to \cite[Theorem~4]{turner1998effect} (see also
 \cite[Theorem~4.1]{graham2000chaoticity}), there exists a coupling
 between $\XN$ and a variable $\tilde{\XN}$ picked according to the
 stationary distribution of $N$ independent M/M/1 queues such that for
-all $j$, $\sum_{i=j}^\infty\XN_i$ is stochastically smaller that
-$\sum_{i=j}^\infty\XtN_i$. As the sequence $w$ is increasing, this
-implies that $\snorm{\XN}_w$ is stochastically smaller than
-$\snorm{\XtN}_w$.
+all $j$, $\sum_{i=j}^\infty\XN_i\le\sum_{i=j}^\infty\XtN_i$. Denoting
+$w_0=0$, for any infinite sequence $x$ we have
+$\sum_{i=1}^\infty
+w_ix_i=\sum_{i=1}^\infty(w_{i}-w_{i-1})\sum_{j=i}^\infty x_j$.
+As the sequence $w$ is increasing, $w_i-w_{i-1}\ge0$. This implies
+that (for this coupling): 
+$\snorm{\XN}_w=\sum_{i=1}^\infty
+w_j\XN_j=\sum_{i=1}^\infty(w_{i}-w_{i-1})\sum_{j=i}^\infty\XN_j \le
+\sum_{i=1}^\infty(w_j-w_i)\sum_{j=i}^\infty\XtN_j =\norm{\XtN}_w
+$.
+%is stochastically smaller than $\snorm{\XtN}_w$.
 
 %  A natural
 % coupling argument\footnote{Consider the partial order
@@ -1977,11 +1986,11 @@ accurate than mean-field, especially when the system size is small
 \section{Acknowledgment}
 
 The author would like to thank Romain Joly and Jaap Eldering for
-fruitful discussions on the link between asymptotic stability and
-the dependence on initial conditions. The author is grateful to
-Bruno Gaujal and Sem Borst whose insightful comments substantially
-improved this paper.  This work is partially supported by the EU
-project QUANTICOL, 600708.
+fruitful discussions on the link between asymptotic stability and the
+dependence on initial conditions. The author is grateful to Bruno
+Gaujal, Debankur Mukherjee and Sem Borst whose insightful comments
+substantially improved this paper.  This work is partially supported
+by the EU project QUANTICOL, 600708.
 
 %\printbibliography
 \bibliographystyle{ACM-Reference-Format}
