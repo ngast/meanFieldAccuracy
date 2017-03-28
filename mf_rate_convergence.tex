@@ -49,15 +49,15 @@
 \newcommand\floor[1]{\left\lfloor#1\right\rfloor}
 \newcommand\var[1]{\mathrm{var}\left[#1\right]}
 \newcommand\svar[1]{\mathrm{var}[#1]}
-\newcommand\esp[1]{\mathchoice{\besp{#1}}{\sesp{#1}}{\sesp{#1}}{\sesp{#1}}}
+\newcommand\esp[1]{{\mathchoice{\besp{#1}}{\sesp{#1}}{\sesp{#1}}{\sesp{#1}}}}
 \newcommand\besp[1]{\mathbb{E}\left[#1\right]}
 \newcommand\sesp[1]{\mathbb{E}[#1]}
-\newcommand\espN[1]{\mathchoice{\bespN{#1}}{\sespN{#1}}{\sespN{#1}}{\sespN{#1}}}
+\newcommand\espN[1]{{\mathchoice{\bespN{#1}}{\sespN{#1}}{\sespN{#1}}{\sespN{#1}}}}
 \newcommand\bespN[1]{\mathbf{E}^{(N)}\left[#1\right]}
 \newcommand\sespN[1]{\mathbf{E}^{(N)}[#1]}
 \newcommand\Proba[1]{\mathbf{P}\left[#1\right]}
 \newcommand\sProba[1]{\mathbf{P}[#1]}
-\newcommand\norm[1]{\mathchoice{\bnorm{#1}}{\snorm{#1}}{\snorm{#1}}{\snorm{#1}}}
+\newcommand\norm[1]{{\mathchoice{\bnorm{#1}}{\snorm{#1}}{\snorm{#1}}{\snorm{#1}}}}
 \newcommand\bnorm[1]{\left\|#1\right\|}
 \newcommand\snorm[1]{\|#1\|}
 \newcommand\norminf[1]{\left\|#1\right\|_{\infty}}
@@ -146,17 +146,16 @@ Mean-field approximation is widely used to study the performance of
 computer-based systems: queueing networks \cite{baccelli1992mean},
 wireless networks \cite{cecchi2015mean}, dissemination algorithms
 \cite{chaintreau2009age}, caching \cite{gast2015transient}, SSDs
-\cite{van2013mean},\dots{}
-An important area of application is the analysis of resource
-allocation strategies in server farms or data centers: such a system
-is composed of a large number of servers that interact because of the
-scheduling or routing strategies
-\cite{gast2010mean,lu2011join,mitzenmacher1996power,tsitsiklis2011power,vvedenskaya1996queueing}.
+\cite{van2013mean},\dots{} An important area of application is the
+analysis of resource allocation strategies in server farms or data
+centers: such a system is composed of a large number of servers that
+interact because of scheduling or routing strategies
+\cite{gast2010mean,lu2011join,mitzenmacher1996power,tsitsiklis2011power,vvedenskaya1996queueing,minnebo2014fair}.
 A typical example is the \emph{power of two-choices}: Mean-field
 approximation has been used in
 \cite{mitzenmacher1996power,vvedenskaya1996queueing} to show that
 routing a task to the least loaded of two randomly sampled servers
-significantly reduces  the response time compared to a purely random
+significantly reduces the response time compared to a purely random
 allocation.
 
 Mean-field approximation is known to be asymptotically exact for many
@@ -171,7 +170,7 @@ $1/\sqrt{N}$:
   \label{eq:1/sqrt{N}}
   \esp{\norm{\XN-x}} \approx \frac{C}{\sqrt{N}}.
 \end{align}
-This result is a like a central-limit-theorem for mean-field system:
+This result is a like a central-limit-theorem for mean-field systems:
 $\XN(t)$ is equal to $x(t)$ plus $1/\sqrt{N}$ times a Gaussian noise
 \cite{kurtz70}. It was originally proven for finite time-horizon and
 recently extended to stationary distributions in \cite{ying2016rate}.
@@ -193,7 +192,7 @@ $1/\sqrt{N}$ suggested by Equation~\eqref{eq:1/sqrt{N}}.
   \centering
   \begin{tabular}{|c|c|c|c|c|}
     \hline
-    $N$ & 10 & 100 & 1000 &$+\infty$\\\hline
+    Number of servers ($N$) & 10 & 100 & 1000 &$+\infty$\\\hline
     Average queue length ($m^N$) &2.81&2.39&2.36& 2.35\\\hline
     Error ($m^N-m^\infty$) & 0.45 & 0.039 & 0.004 & 0 \\\hline
   \end{tabular}
@@ -232,7 +231,7 @@ approximation is $1/N$-accurate.  In a queuing network such as the
 two-choice model, the average queue length can be expressed as
 $\sesp{h(\XN)}$.  Equation~\eqref{eq:1/N} shows that the average queue
 length converges at rate $O(1/N)$ to its mean-field approximation.
-This is what is observed in Table~\ref{tab:power2}, where we have
+This is what is observed in Table~\ref{tab:power2}, where 
 $\sesp{h(\XN)}\approx h(x)+4/N$.
 
 \paragraph*{Contributions}
@@ -254,20 +253,22 @@ to provide a unified framework in which Equation~\eqref{eq:1/N} is
 true: our results hold for the transient and stationary regime and for
 finite or infinite-dimensional models.  Using Stein's method, we show
 that the $O(1/N)$ rate holds if the derivative with respect to its
-initial condition of $\int_0^tx(s)ds$ exists and is
-Lipschitz-continuous.  We show that, for the transient regime, this
-holds as soon as the drift $f$ has a derivative that is
-Lipschitz-continuous. For the stationary regime, it holds when, in
-addition, the ODE has a unique attractor that is exponentially stable.
-In the transient case, \cite{kolokoltsov2011mean} obtains a $O(1/N)$
-like Equation~\eqref{eq:1/N} for a simplified version of our model
-where a transition affects at most one object.  For the stationary
-regime, a $O(1/\sqrt{N})$ like Equation~\eqref{eq:1/sqrt{N}} is
-obtained in \cite{ying2016rate}. Our proof is inspired by the
-methodology of \cite{ying2016rate} but we obtain a stronger result by
-working with a generic function $h$.  Note that infinite-dimensional
-models arise naturally when one considers queuing systems with
-unbounded queues. They are not considered in
+initial condition of $\int_0^t\Phi_sxds$ exists and is
+Lipschitz-continuous (where $t\mapsto\Phi_tx$ denote the unique
+solution of the ODE $\dot{x}=f(x)$ that starts in $x$ at time $0$).
+We show that, for the transient regime, this holds as soon as the
+drift $f$ has a derivative that is Lipschitz-continuous. For the
+stationary regime, it holds when, in addition, the ODE has a unique
+attractor that is exponentially stable.  In the transient case,
+\cite{kolokoltsov2011mean} obtains a $O(1/N)$ like
+Equation~\eqref{eq:1/N} for a simplified version of our model where a
+transition affects at most one object.  For the stationary regime, a
+$O(1/\sqrt{N})$ like Equation~\eqref{eq:1/sqrt{N}} is obtained in
+\cite{ying2016rate}. Our proof is inspired by the methodology of
+\cite{ying2016rate} but we obtain a stronger result by working with a
+generic function $h$.  Note that infinite-dimensional models arise
+naturally when one considers queuing systems with unbounded
+queues. They are not considered in
 \cite{kolokoltsov2011mean,ying2016rate}.
 
 Another contribution of our paper compared to
@@ -320,7 +321,7 @@ $N$-server two-choice system is
   + \frac{1}{N}\Theta_{\rho\to1}\Big(\frac{1}{1-\rho}\Big) +
   O\Big(\frac1{N^2}\Big),
 \end{align*}
-with $\Theta(1/(1-\rho))$ equivalent to $1/(2-2\rho)$ as $\rho$
+where $\Theta(1/(1-\rho))$ is equivalent to $1/(2-2\rho)$ as $\rho$
 goes to $1$.
 
 The above equation is constructed by assuming first that $N$ goes to
@@ -399,13 +400,13 @@ $\SN_n(t)$. Let $\XN(t)$ be the empirical measure at time $t$: for
 $i\in\calS$, $\XN_i(t)$ is the fraction of objects in state $i$ at
 time $t$:
 \begin{equation*}
-  \XN_i(t) := \frac{1}{N}\sum_{n=1}^N \Ind{\SN_n(t)=i\}}.
+  \XN_i(t) := \frac{1}{N}\sum_{n=1}^N \Ind{\SN_n(t)=i}.
 \end{equation*}
 We say that this system is a mean-field interacting system if $(\XN)$
 is a population process.  The process $\XN$ lives in $\calP(\calS)$,
 the set of probability measures on $\calS$.
 
-Note that if all objects are symmetric, we have
+Note that if all objects are exchangeable, we have
 \begin{align}
   \esp{\XN_i(t)} &= \frac{1}{N} \sum_{n=1}^N \Proba{\SN_n(t)=i}\nonumber\\
   &=\Proba{\SN_1(t)=i}. \label{eq:symmetric}
@@ -441,7 +442,8 @@ The set $C^{1+\alpha}(\E,\calF)$ denotes the set of functions
 $h:\E\to\calF$ that are differentiable and such that the first
 derivative of $h$ is $\alpha$-Hölder continuous.  The set
 $C^1(\E,\calF)$ denotes the set of functions $h:\E\to\calF$ that are
-differentiable and such that the first derivative of $h$ is bounded.
+differentiable and such that the first derivative of $h$ is
+continuous and bounded.
 
 In the theorems, we assume that $f$ is Lipschitz-continuous. This
 implies that, for any initial condition the ODE $\dot{x}=f(x)$ has a
@@ -483,24 +485,24 @@ that the latter is in general much smaller than the former:
 \label{sec:transient}
 
 Our first result concerns the transient regime. We show that in this
-case, the Lipschitz-continuity of the derivative of the drift
-suffices to show that an average value estimated by the mean-field
-approximation, $h(\Phi_tx)$ is at distance $O(1/N)$ from the true
-value, $\sesp{h(\XN(t))}$.  One application of this result is when one
-wants to compute the marginal law of an object of a mean-field
-interaction model.  By using Equation~\eqref{eq:symmetric}, the
-marginal law of one object converges at rate $O(1/N)$ to its
-mean-field approximation:
+case, the Lipschitz-continuity of the derivative of the drift suffices
+to show that an average value estimated by the mean-field
+approximation -- $h(\Phi_tx)$ -- is at distance $O(1/N)$ from the true
+value -- $\sesp{h(\XN(t))}$.  One application of this result is when
+one wants to compute the marginal law of an object of a mean-field
+interaction model.  This result combined with
+Equation~\eqref{eq:symmetric} implies that the marginal law of one
+object converges at rate $O(1/N)$ to its mean-field approximation:
 \begin{equation*}
   \abs{\proba{\SN_1(t)=i} - x_i(t)} \le \frac{C(t)}{N},
 \end{equation*}
 where $x(t)$ denotes the value at time $t$ of the unique solution of
 the ordinary differential equation starting in $x\approx\XN(0)$. This
-results complements the functional central limit theorems -- such as
-the results of \cite{kurtz1978strong} -- that show that the sample
-paths of $\XN$ are at distance $O(1/\sqrt{N})$ of $x$. We obtain here
-that the marginal law of an object, which is the expectation of $\XN$,
-is at distance $O(1/N)$ from $x$.
+result complements functional central limit theorems -- such as the
+results of \cite{kurtz1978strong} -- that show that the sample paths
+of $\XN$ are at distance $O(1/\sqrt{N})$ of $x$. % We obtain here that
+% the marginal law of an object, which is the expectation of $\XN$, is
+% at distance $O(1/N)$ from $x$.
 
 Note that the conditions to apply Theorem~\ref{th:transient} are easy
 to verify and can be done by a syntactic analysis of the model.  In
@@ -517,7 +519,7 @@ the case of drifts whose derivative are $\alpha$-Hölder continuous.
   its derivative are Lipschitz-continuous.  Let $h:\E\to\R$ be a
   differentiable function such that both $h$ and its derivative are
   Lipschitz-continuous with constant $L$. Assume that
-  $\snorm{\XN(0)-x}\le c/N$ almost surely. Then, for each $t$, there
+  $\snorm{\esp{\XN(0)}-x}\le c/N$. Then, for each $t$, there
   exists a constant $C(t)<\infty$ such that
   \begin{align}
     \label{eq:th_transient}
@@ -582,14 +584,14 @@ $O(1/N)$ under the condition that the ODE has a unique attractor that
 is locally exponentially stable (as in \cite{ying2016rate}).
 
 We say that a point $x^*$ is a locally exponentially stable attractor
-if there exists a bounded neighborhood $V$ of $x^*$, a constant $a>0$
-and a function $T:\E\to\R^+$ such that
+if there exists a bounded neighborhood $V$ of $x^*$, and two constants
+$a,b>0$ such that
 \begin{itemize}
 \item[(A1)] For $x\in V$:
-  $\norm{\Phi_tx-x^*}\le e^{-at}\norm{x-x^*}$ ($x^*$ is locally
+  $\norm{\Phi_tx-x^*}\le be^{-at}\norm{x-x^*}$ ($x^*$ is locally
   exponentially stable).
-\item[(A2)] For all $x\in\E$: $\Phi_{T(x)}(x)\in V$ (the neighborhood
-  attracts a trajectory starting in $x$ in a time $T(x)$).
+\item[(A2)] For all $x\in\E$, there exists $T$ such that for $t\ge T$:
+  $\Phi_{t}(x)\in V$ (the neighborhood $V$ attracts all trajectories).
 \end{itemize}
 In practice, condition (A1) is easy to verify, as it depends mainly on
 whether the ODE is locally stable. This can be done by a numerical
@@ -600,7 +602,7 @@ a global attractor is difficult because it depends not only on the
 form of the ODE but also on precise values of its parameters
 \cite{benaim2008class,cho2010validity}.  Note (A2) is necessary to
 apply the classical concentration results of \cite{benaim2008class}
-which means that our conditions are not more difficult to apply than
+which means that our conditions are not more difficult to verify than
 the ones of \cite{benaim2008class}.
 
 We assume that for $N$ large enough, the stationary measure of the
@@ -615,10 +617,11 @@ at rate $O(1/N^2)$, \emph{i.e.}
 If the system evolves in a compact space, assumption (A3) is trivially
 satisfied by taking $\calB=\E$. In the case of unbounded state-space
 $\E$, we know from \cite{benaim2008class} that the stationary measure
-converges on the Dirac measure in $x^*$ as $N$ goes to infinity. The condition
-(A3) is a bound on how far $\XN$ can deviate from $x^*$.  For the
-two-choice model, we show it by using large-deviation type results
-(see the end of Section~\ref{sec:proof_2c}).
+converges on the Dirac measure in $x^*$ as $N$ goes to infinity. The
+condition (A3) is a bound on how far $\XN$ can deviate from $x^*$.
+For the two-choice model, we show it by bounding $\XN$ by a system of
+$N$ independent $M/M/1$ queues and then by using a large-deviation
+type results (see the end of Section~\ref{sec:proof_2c}).
 
 \begin{theorem}
   \label{th:stationary}
@@ -651,7 +654,7 @@ two-choice model, we show it by using large-deviation type results
   The first step of the proof is then to construct
   Equation~\eqref{eq:Poisson_infinite}. This equation is the analog of
   \eqref{eq:Poisson_transient} as $t\to\infty$. Following Stein's
-  method, we define the function $Gh$ as
+  method and \cite{ying2016rate}, we define the function $Gh$ as
   \begin{align*}
     Gh : x\mapsto \int_0^\infty \p{h(\Phi_t x)-h(x^*)}dt. 
   \end{align*}
@@ -715,7 +718,7 @@ $f$.
     are satisfied, then Theorem~\ref{th:transient} holds, replacing
     Equation~\eqref{eq:th_transient} by
     \begin{align*}
-      \esp{h(\XN(t)) - h(\Phi_t\XN(0))} \qquad\\
+      \esp{h(\XN(t)) - h(\Phi_t\XN(0))} %\qquad\\
       \le C(t)L\p{\frac{1}{N} + \norm{f^N-f}}. 
     \end{align*}
   \item[(ii)] If the other assumptions of Theorem~\ref{th:stationary}
@@ -765,11 +768,12 @@ that there exists a constant $C$ such that for all $t$:
   \snorm{\sesp{\XN(t)}-x(t)}\le \sesp{\snorm{\XN(t)-x(t)}}\le C
   \frac{e^{Lt}}{\sqrt{N}}. 
 \end{align*}
-In the previous section, we have shown that when the derivative of
-the drift exists and is Lipschitz-continuous, the convergence is in
-$O(1/N)$.  The next theorem characterizes what happens in between,
+In the previous section, we have shown that when the derivative of the
+drift exists and is Lipschitz-continuous, the convergence is in
+$O(1/N)$.  The next theorem, whose proof is postponed to
+Section~\ref{sec:Holder_proof}, characterizes what happens in between,
 \emph{i.e.}  when the derivative of the drift exists and is
-$\alpha$-Hölder continuous with $\alpha\in(0,1)$. 
+$\alpha$-Hölder continuous with $\alpha\in(0,1)$.
 \begin{theorem}
   \label{th:Holder}
   Let $\XN$ be a population process on a Banach space $\E$ such that
@@ -778,26 +782,22 @@ $\alpha$-Hölder continuous with $\alpha\in(0,1)$.
   its derivative exists and is $\alpha$-Hölder continuous.  Let
   $h:\E\to\R$ be a differentiable function such that $h$ and its
   derivative $Dh$ are $\alpha$-Hölder continuous with constant
-  $L$. Then, there exists a constant $C<\infty$ such that for all $t$:
+  $L$. Then, there exists $C<\infty$ such that for $t>0$:
   \begin{align*}
     \abs{\esp{h(\XN(t))}-h(\Phi_tx)} \le CL\frac{e^{Ct}}{\sqrt{N}^{1+\alpha}}.
   \end{align*}
 \end{theorem}
-\begin{proof}
-  The proof is postponed to Section~\ref{sec:Holder_proof}.  
-\end{proof}
 
 A key difference between this result and Theorem~\ref{th:transient}
 lies in the methodology of proof. On the one hand, the proof of
 Theorem~\ref{th:Holder} involves Gronwall's lemma which leads to a
-constant $e^{Ht}$ that grows exponentially with time. On the other
-hand, the proof of Theorem~\ref{th:transient} involves the convergence
-of the generators. The constant in front of $1/N$ depends on the
+constant $e^{Ht}$ that grows exponentially with time which therefore
+cannot be easily adapted to the stationary regime. On the other hand,
+the proof of Theorem~\ref{th:transient} involves the convergence of
+the generators. The constant in front of $1/N$ depends on the
 Lipschitz constant of $\int_0^tD\Phi_sds$.  This result can then be
 adapted to the the stationary measure by showing that the Lipschitz
-constant of $\int_0^\infty D\Phi_sds$ is bounded. The proof of
-Theorem~\ref{th:Holder} cannot be easily adapted to the stationary
-regime.
+constant of $\int_0^\infty D\Phi_sds$ is bounded.
 
 In fact, the proofs of Theorem~\ref{th:transient} and
 \ref{th:stationary} can be adapted to the case of $\alpha$-Hölder
@@ -845,8 +845,8 @@ that explodes with time.
 \section{Necessity of the conditions}
 \label{sec:numerical}
 
-In this section, we examine the necessity of regularity conditions of
-the drift. We provide an example that shows that when the drift is
+In this section, we examine the necessity of the regularity conditions
+of the drift. We provide an example that shows that when the drift is
 Lipschitz-continuous (and not differentiable), the rate of convergence
 of $|\sesp{\XN}-x|$ is not faster than $1/\sqrt{N}$. When the
 derivative of the drift is $\alpha$-Hölder, we show that the
@@ -1126,13 +1126,13 @@ shows that for the two-choice model:
   \espN{\sum_{i\ge1}(\XN_i-\pi_i)^2} = O\p{\frac1N}. 
 \end{align*}
 This last result improves the bound of \cite{ying2016twochoice}, in
-which it is shown that the mean-square deviation
-converges at rate $O((\log N)^3(\log\log N)^6 /N)$. The factor
-$(\log N)^3(\log\log N)^6$ of \cite{ying2016twochoice} comes from the
-fact that the author uses a finite-dimensional model to study the
-original model.  It compensates the error due to the difference
-between the finite and infinite models.  One advantage of our approach
-is that we treat directly the infinite-dimensional system. 
+which a convergence rate of $O((\log N)^3(\log\log N)^6 /N)$ is
+obtained. The factor $(\log N)^3(\log\log N)^6$ of
+\cite{ying2016twochoice} comes from the fact that the author studies a
+truncated finite-dimensional model in order to study the original
+model.  This factor is then a bound on the error between the finite
+and infinite models.  One advantage of our approach is that we treat
+directly the infinite-dimensional system.
 
 
 To work in the infinite-dimensional case, the main technical
@@ -1167,7 +1167,7 @@ sample of a performance indicator by computing an average over the
 next $10^6$ events. This gives us one sample. To guarantee confidence
 intervals of order $1/N$, the reported results are averages over
 $K(N)=\max(500,N^2/100)$ samples. The error bars that are shown on the
-figures correspond to the standard confidence interval for the mean
+figures correspond to the standard confidence intervals for the mean
 (\emph{i.e.} $\pm2\sigma/\sqrt{K(N)}$, where $\sigma^2$ is the
 empirical variance of our $K(N)$ samples).  The time to simulate
 $K(N)$ samples grows as $N^2$: from $10$ seconds for $N=100$ to more
@@ -1193,7 +1193,7 @@ objects to $\pi$. For the system of size $N$, we denote by $p^N_i$ the
 probability that a server has $i$ or more jobs. As the servers are
 symmetric, $p^N_i$ equals
 \begin{align*}
-  p^N_i=\sProba{\SN_1\ge i} = \espN{\XN_i}. 
+  p^N_i=\Proba{\SN_1\ge i} = \espN{\XN_i}. 
 \end{align*}
 
 By Theorem~\ref{th:two-choice}, the difference between $p^N_i$ and
@@ -1294,11 +1294,12 @@ $1/2$ as $\rho$ goes to $1$.
 
 The average queue length of the mean-field limit has been shown in
 \cite{mitzenmacher1996power} to be of order $\log (1/(1-\rho))$ as
-$\rho$ tends to $1$:
-$\lim_{\rho\to1}m^\infty(\rho) / \log(1/(1-\rho)) = 1/\log2$.
-This is an order of magnitude better than the classical $1/(1-\rho)$
-when jobs are allocated at random. Our numerical result suggests that
-for a finite system size $N$, a term in $O(1/(1-\rho))$ remains.
+$\rho$ tends to $1$: more precisely,
+$\lim_{\rho\to1}m^\infty(\rho) / \log(1/(1-\rho)) = 1/\log2$.  This is
+an order of magnitude smaller than when jobs are allocated at random
+in which case the average queue length is $1/(1-\rho)$. Our numerical
+result suggests that for a finite system size $N$, a term in
+$O(1/(N(1-\rho)))$ remains.
 
 We conjecture that the average queue length of a $N$-server two-choice
 system satisfies 
@@ -1318,9 +1319,9 @@ seems to satisfy
 \begin{figure}[ht]
   \centering
   \begin{tabular}[ht]{@{}c@{}c@{}}
-    (a)&\begin{tabular}{@{}c}\includegraphics[width=.9\linewidth]{jsq2_simulate/C_rho}
+    (a)&\begin{tabular}{@{}c}\includegraphics[width=.93\linewidth]{jsq2_simulate/C_rho}
         \end{tabular}\\
-    (b)&\begin{tabular}{@{}c}\includegraphics[width=.9\linewidth]{jsq2_simulate/C_rho_conv}
+    (b)&\begin{tabular}{@{}c}\includegraphics[width=.93\linewidth]{jsq2_simulate/C_rho_conv}
         \end{tabular}
   \end{tabular}
   \caption{Evaluation of $d(\rho)$ as a function of $\rho$. In (a), we
@@ -1352,7 +1353,7 @@ on $h:\E\to\R$:
   \PsiN_t h (x) &= \esp{ h(\XN(t)) \mid \XN(0) = x} \label{eq:operatorN}\\
   \Phi_t h (x) &= h( \Phi_tx ) \label{eq:operatorInf}
 \end{align}
-Note that for a function $h\in C^1(\E,\R)$, we have
+For a function $h\in C^1(\E,\R)$, we have
 $\dt \PsiN_th = \PsiN_t\LN h= \LN\PsiN_t h$ and
 $\dt \Phi_th = \Phi_t\Lambda h= \Lambda\Phi_t h$.
 
@@ -1366,10 +1367,10 @@ The proofs of the following lemmas follow similar ideas as the proof
 of \cite[Theorem~1]{kolokoltsov2011mean}. Yet, we provide a complete
 proof here as our result generalizes
 \cite[Theorem~1]{kolokoltsov2011mean} for two reasons.  First, the set
-of transitions that we consider is more general
-(\cite{kolokoltsov2011mean} restricts its transitions to changes that
-affect only one object). Second, our results apply for Banach space
-and not just for finite dimensional sets.
+of transitions that we consider is more general (a transition in the
+model of \cite{kolokoltsov2011mean} can only affect one
+object). Second, our results apply for Banach space and not just for
+finite dimensional sets.
 
 \begin{lemma}
   \label{lem:trotter-kurtz}
@@ -1470,9 +1471,9 @@ and not just for finite dimensional sets.
 \label{sec:proof_ss}
 
 \textbf{Remark}: \emph{As for Lemma~\ref{lem:Holder}, we directly
-  prove the result in the case $\alpha$-Hölder continuous derivative.
-  Theorem~\ref{th:stationary} can be obtained by considering the
-  special case $\alpha=1$. } \medskip
+  prove the result in the case of $\alpha$-Hölder continuous
+  derivative.  Theorem~\ref{th:stationary} can be obtained by
+  considering the special case $\alpha=1$. } \medskip
 
 \begin{lemma}
   \label{lem:proof_ss} 
@@ -1499,7 +1500,7 @@ and not just for finite dimensional sets.
 
 \begin{proof}
   We will first prove \emph{(i)}, then prove that \emph{(i)} implies
-  \emph{(ii)} and then prove \emph{(ii)}.  The most technical part of
+  \emph{(ii)} and then prove \emph{(iii)}.  The most technical part of
   our proof is to show that \emph{(i)} implies \emph{(ii)}. Its proof
   is inspired by the proof of \cite[Lemma~C.1]{eldering2013normally}
   that shows that the exponential decay of the first derivative of
@@ -1526,7 +1527,7 @@ and not just for finite dimensional sets.
     \Phi_tx &= e^{At}x + \int_0^t e^{A(t-s)} g(\Phi_sx)ds
   \end{align*}
   As the flow is exponentially stable, it is also linearly stable:
-  $\norm{e^{At}}\le e^{-\beta t}$. Hence, for all $x,y-x\in\calN'$:
+  $\norm{e^{At}}\le e^{-\beta t}$. Hence, for all $x,x+y\in\calN'$:
   \begin{align*}
     & \norm{\Phi_t(x+y) - \Phi_tx}\\
     &= \norm{e^{At}y + \int_0^t e^{A(t-s)}
@@ -1570,15 +1571,15 @@ and not just for finite dimensional sets.
   with initial condition $F_0=D(\Phi_0(x+e))-D\Phi_0(x)=0$. 
   
   The homogeneous part of the differential equation is
-  $\dot{A} = Df(\Phi_t(x+e)) A$ is a linear differential equation on
-  $\calL(\E,\E)$, the set of linear map from $\E$ to $\E$. Let
+  $\dot{A} = Df(\Phi_t(x+e)) A$. It is a linear differential equation
+  on $\calL(\E,\E)$, the set of linear map from $\E$ to $\E$. Let
   $A_{t,s}:\calL(\E,\E)\to \calL(\E,\E)$ be the solution
   operator\footnote{This means that for $y\in\calL(\E,\E)$, the
     function $s\mapsto A_{t,s}y$ is the solution of the homogeneous
     differential equation starting in $y$ at time $s$.} of this
   homogeneous differential equation.
   
-  Let $F:\R^+\to\calL(\R^d,\R^d)$ be the function defined by
+  Let $F:\R^+\to\calL(\E,\E)$ be the function defined by
   \begin{align*}
     F_t = \int_0^t A_{t,s}\p{Df(\Phi_s(x+e))-Df(\Phi_sx)}\cdot
     D\Phi_sxds.
@@ -1641,12 +1642,12 @@ and not just for finite dimensional sets.
     D(Gh)= \int_0^\infty D(\Phi_th) dt. 
   \end{align*}
   By \emph{(ii)}, $D(\Phi_th)$ is $\alpha$-Hölder continuous with
-  constant $Lce^{-\delta t}$. This shows that $D(Gh)$ is
-  $\alpha$-Hölder continuous with constant $\int_0^\infty Lce^{-\delta
-    t}dt = Lc/\delta$. 
+  constant $Lce^{-\delta t}$. This shows that the function $D(Gh)$ is
+  $\alpha$-Hölder continuous with constant
+  $\int_0^\infty Lce^{-\delta t}dt = Lc/\delta$.
 \end{proof}
 
-\subsubsection{Concentration of measure}
+\subsubsection{Dealing with non-compact state-space}
 
 \begin{lemma}\label{lem:proof_ss2} Assume that the system satisfies the
   assumption of Theorem~\ref{th:stationary} and the function $h$
@@ -1661,8 +1662,8 @@ and not just for finite dimensional sets.
   Let $W$ be a bounded set outside containing the set $V$ of
   Assumption~(A2) and outside which $h(x)$ is equal to $h(x^*)$. For
   $x\in\E$, let $S(x)$ be the first time at which the solution of the
-  ODE that starts in $x$ enters $W$ ($S(x)$ exists because
-  $V\subset W$ and $V$ attracts all trajectories). We have
+  ODE that starts in $x$ enters $W$ -- the function $S(x)$ exists
+  because $V\subset W$ and $V$ attracts all trajectories. We have
   \begin{align*}
     Gh x &= \int_0^\infty (h(\Phi_t x) - h(x^*)) dt\\
          &=\int_0^{S(x)}\hspace{-.3cm}\underbrace{(h(\Phi_t
@@ -1800,7 +1801,7 @@ $\delta=\min(\delta^*,(b-a)(a-1)/(ab))>0$.
 
 According to \cite[Theorem~4]{turner1998effect} (see also
 \cite[Theorem~4.1]{graham2000chaoticity}), there exists a coupling
-between $\XN$ and a variable $\tilde{\XN}$ picked according to the
+between $\XN$ and a variable $\XtN$ picked according to the
 stationary distribution of $N$ independent M/M/1 queues such that for
 all $j$, $\sum_{i=j}^\infty\XN_i\le\sum_{i=j}^\infty\XtN_i$. Denoting
 $w_0=0$, for any infinite sequence $x$ we have
@@ -1810,7 +1811,7 @@ As the sequence $w$ is increasing, $w_i-w_{i-1}\ge0$. This implies
 that (for this coupling): 
 $\snorm{\XN}_w=\sum_{i=1}^\infty
 w_j\XN_j=\sum_{i=1}^\infty(w_{i}-w_{i-1})\sum_{j=i}^\infty\XN_j \le
-\sum_{i=1}^\infty(w_j-w_i)\sum_{j=i}^\infty\XtN_j =\norm{\XtN}_w
+\sum_{i=1}^\infty(w_i-w_{i-1})\sum_{j=i}^\infty\XtN_j =\norm{\XtN}_w
 $.
 %is stochastically smaller than $\snorm{\XtN}_w$.
 
@@ -1834,7 +1835,7 @@ $w_i\le c a^i$. This implies that $\sum_{j=1}^i w_i\le c' a^i$, where
 $c'=ca/(a-1)$.  Therefore, in the stationary regime, we have
 \begin{align*}
   %\label{eq:XN-le-tilde}
-  \norm{\XN}_w\le\norm{\tilde \XN}_w&=\frac{1}{N}\sum_{n=1}^N\sum_{i\ge0} w_i
+  \norm{\XN}_w\le\norm{\XtN}_w&=\frac{1}{N}\sum_{n=1}^N\sum_{i\ge0} w_i
                                       \mathbf{1}_{\tilde{Z}_n\ge i} 
                      % &\le c' N^-1\sum_{n=1}^N\sum_{i\ge0}
                      % a^i\mathbf{1}_{\tilde{Z}_n=i} \\
@@ -1955,25 +1956,25 @@ parameter $\rho$.
 \label{sec:conclusion}
 
 In this paper, we revisited the rate of convergence of mean-field
-models. Most of the results in the literature shows that the expected
+models. Most of the results in the literature show that the expected
 distance between the empirical measure $\XN$ and its mean-field
 approximation $x$ converges to $0$ at rate $O(1/\sqrt{N})$. Our
-approach is different : we study the distance between $x$ and the
-expectation of $\XN$ and show that this distance decreases as
+approach is different : we study the distance between the expectation
+of $\XN$ and $x$ and we show that this distance decreases as
 $O(1/N)$. The latter quantity is natural when one wants to compute
 expected performance indicators such as the average queue length or
-the marginal law of one object.  We have shown that the convergence
+the marginal law of one object.  We have shown that this convergence
 rate of $O(1/N)$ holds for finite and infinite-dimensional models. It
-also holds for the stationary regime when the mean-field approximation
-has a locally exponentially stable attractor.
+holds for the transient regime and also for the stationary regime when
+the limiting ODE has a locally exponentially stable attractor.
 
 We believe that the potential of applicability of our method is
 large. Most of the discrete-space mean-field models found in the
 literature satisfy our assumptions.  For these models, our results
 provide new insights on how accurate mean-field approximation is. They
 also suggest that in many cases, the mean-field approximation can be
-refined by a term in $C/N$.  An easy way to evaluate this constant $C$
-is to compute the gap between the mean-field approximation and a
+refined by a term $C/N$.  An easy way to evaluate this constant $C$ is
+to compute the gap between the mean-field approximation and a
 simulation for a small system size ($N\approx10$) and then to
 extrapolate to larger values of $N$.  For future work, we are
 currently working on numerical and analytical methods to directly
