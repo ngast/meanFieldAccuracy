@@ -300,9 +300,9 @@ This provides a refinement of the mean-field approximation: the
 performance of a system of size $N$ can be precisely estimated from
 two quantities: its mean-field approximation $h(x)$ and the constant
 $C$ corresponding to the error of the mean-field approximation. The
-constant $C/N$ can be estimated analytically or by simulation for a
+constant $C$ can be estimated analytically or by simulation for a
 small system size and then extrapolated to larger system sizes.  As an
-example, we study in details the convergence rate of the classical
+example, we study in detail the convergence rate of the classical
 power-of-two-choice model of
 \cite{mitzenmacher1996power,vvedenskaya1996queueing}. This model shows
 that routing an incoming job to the shortest of two randomly sampled
@@ -330,7 +330,7 @@ contrasted with the heavy-traffic limit of
 \cite{eschenfeldt2016supermarket}, who study the case where the load
 depends on $N$ and goes to one as $N$ goes to infinity:
 $\rho_N=1-1/\eta_N$ with $\lim_{N\to\infty}\eta_N=\infty$. The authors
-show that the mean-field approximation always under-estimate the
+show that the mean-field approximation always under-estimates the
 average queue length.  They also establish a heavy-traffic regime when
 $\eta_N$ grows sub-linearly.  Our result suggests that for this
 scaling, the difference between the average queue length of the system
@@ -393,7 +393,7 @@ $dt$. It does not depend on $N$.
 
 \paragraph*{Mean-field interacting system}
 A particularly interesting subclass of population processes is the
-case mean-field interacting systems. Such a system is composed of $N$
+case of mean-field interacting systems. Such a system is composed of $N$
 objects. Each object lives in a finite or countable state-space
 $\calS$. The state of the object $n$ at time $t$ is denoted by
 $\SN_n(t)$. Let $\XN(t)$ be the empirical measure at time $t$: for
@@ -507,7 +507,7 @@ of $\XN$ are at distance $O(1/\sqrt{N})$ of $x$. % We obtain here that
 Note that the conditions to apply Theorem~\ref{th:transient} are easy
 to verify and can be done by a syntactic analysis of the model.  In
 Section~\ref{sec:holder}, we show that this result can be modified in
-the case of drifts whose derivative are $\alpha$-Hölder continuous.
+the case of drifts whose derivatives are $\alpha$-Hölder continuous.
 
 
 
@@ -710,9 +710,9 @@ drift of the system of size $N$, converges uniformly to a function
 $f$.
 
 \begin{theorem}\label{th:imperfect}
-  Assume that for each $N$, the functions $f^N$ is differentiable and
+  Assume that for each $N$, the function $f^N$ is differentiable and
   has a Lipschitz-continuous derivative. Assume that both $f^N$ and
-  its derivative $Df^N$ converges uniformly to $f$ and $Df$. 
+  its derivative $Df^N$ converge uniformly to $f$ and $Df$. 
   \begin{itemize}
   \item[(i)] If the other assumptions of Theorem~\ref{th:transient}
     are satisfied, then Theorem~\ref{th:transient} holds, replacing
@@ -898,7 +898,7 @@ differentiable. For $\alpha=1$, $f$ is differentiable and its
 derivative is Lipschitz-continuous. For $\alpha\in(0,1)$, the drift is
 differentiable and its derivative is $\alpha$-Hölder
 continuous. 
-In the reminder of this section, we study how $\alpha$ affects the
+In the remainder of this section, we study how $\alpha$ affects the
 convergence rate of $\sesp{\XN}-x$ and of $\sesp{\snorm{\XN-x}}$.
 
 
@@ -1021,13 +1021,13 @@ $i\ge1$):
 \item $X \mapsto X+\frac1N\mathbf{e}_i$ at rate
   $N\rho(X^2_{i-1}-X^2_{i})$.
 \end{itemize}
-The first type of events corresponds to a departure from a queue with
+The first type of events correspond to a departure from a queue with
 $i$ jobs. The second term corresponds to an arrival at a queue with
 $i-1$ jobs : An arrival is allocated to a queue with $i-1$ jobs if
 both queues have at least $i-1$ jobs and not both queues have $i$ or
 more jobs.
 
-The form of these transitions indicate that $\XN$ is a population
+The form of these transitions indicates that $\XN$ is a population
 process, as defined in Section~\ref{sec:model}. The corresponding
 mean-field approximation of this system is given by the following
 infinite system of ODEs:
@@ -1089,7 +1089,7 @@ the function $h(x)=x_i$ which is bounded by $1$. This shows:
   \Proba{\text{a server has $i$ or more jobs}} = \rho^{2^i-1} +
   O\p{\frac1N}. 
 \end{align*}
-This result ameliorates the result of \cite{luczak2007asymptotic} in
+This result sharpens the result of \cite{luczak2007asymptotic} in
 which a convergence rate of $O(\log N/N)$ was obtained. 
 
 The bound provided by Equation~\eqref{eq:bound_2c} implies that for
@@ -1140,7 +1140,7 @@ difficulty for applying our approach is to show that
 $\sProba{\snorm{\XN}\ge B}=O(1/N^2)$. In our proof of
 Theorem~\ref{th:two-choice}, we prove it by using a coupling to bound
 the process by a system of $N$ independent $M/M/1$ queues. We then
-show in Lemma~\ref{lem:concentration} the sum of $N$ independent
+show in Lemma~\ref{lem:concentration} that the sum of $N$ independent
 variables have a third moment and therefore concentrate on a bounded
 set at rate $O(1/N^2)$.  
 
@@ -1189,7 +1189,7 @@ than $1$ hour for $N=1000$.
 \subsubsection{Marginal law of one server}
 
 We first study the convergence of the marginal distribution of one
-objects to $\pi$. For the system of size $N$, we denote by $p^N_i$ the
+object to $\pi$. For the system of size $N$, we denote by $p^N_i$ the
 probability that a server has $i$ or more jobs. As the servers are
 symmetric, $p^N_i$ equals
 \begin{align*}
@@ -1204,11 +1204,11 @@ quantity $N(p^N_i-\pi_i)$ converges rapidly to a constant value.
 
 We also performed simulations for other values of $\rho\in[0.5,0.99]$
 for which we observe similar behavior.  This suggests that for each
-$\rho\in[0,1]$ and $i\ge1$ there exists a constant $c_{i,\rho}$ such
+$\rho\in[0,1)$ and $i\ge1$ there exists a constant $c_{i,\rho}$ such
 that
 \begin{align}
   \label{eq:c_i_rho}
-  p^N_i&=\pi_i + \frac1N c_{i,\rho} + o\p{\frac1N},
+  p^N_i&=\pi_i + \frac1N c_{i,\rho} + o\p{\frac1N}.
 \end{align}
 
 
@@ -1308,7 +1308,7 @@ system satisfies
   + \frac{1}{N}\Theta_{\rho\to1}\Big(\frac{1}{1-\rho}\Big) +
   O\p{\frac1{N^2}}. 
 \end{align*}
-with an hidden constant of $1/2$ in the term
+with a hidden constant of $1/2$ in the term
 $\Theta_{\rho\to1}(1/(1-\rho))$. This term is equal to $d(\rho)$ and
 seems to satisfy
 \begin{align*}
@@ -1408,7 +1408,7 @@ finite dimensional sets.
   This shows that for any $h$ and any $x$: 
   \begin{align*}
     \abs{\PsiN_thx -  \Phi_thx} \le \int_0^t\sup_{x\in\E}
-    \abs{(\Lambda-\LN)\Phi_shx}ds.
+    \abs{(\Lambda-\LN)\Phi_shx}ds,
   \end{align*}
   which is Equation~\eqref{eq:lem_TK}. 
   \end{proof}
@@ -1690,7 +1690,7 @@ finite dimensional sets.
   This shows that 
   \begin{align*}
     \espN{ (\Lambda-\LN)(Gh)(\XN)\mathbf{1}_{\XN\not\in\calB}}
-    \le \espN{Nb}. 
+    \le \espN{Nb},
   \end{align*}
   which is of order $O(1/N)$ by Assumption~(A3).
 \end{proof}
