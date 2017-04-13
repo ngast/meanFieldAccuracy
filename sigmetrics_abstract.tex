@@ -1,0 +1,276 @@
+\documentclass[sigconf]{acmart}
+%\documentclass{sig-alternate-05-2015}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[english]{babel}
+%\usepackage[backend=bibtex,firstinits=true,maxbibnames=99]{biblatex}
+%\bibliography{biblio}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage{calc}
+
+\usepackage[subject={Todo},author={Nicolas}]{pdfcomment}
+
+\graphicspath{{}{simu/}{/Users/gast/boulot/QUANTICOL/svn-quanticol/WorkingPapers/bertinoro_WP1/simu/}{jsq2_simulate/}}
+
+\usepackage{hyperref}
+\definecolor{darkblue}{rgb}{0 0 .6}
+\hypersetup{colorlinks=true,linkcolor=darkblue,citecolor=darkblue,urlcolor=darkblue}
+\hypersetup{pageanchor=false}
+\newcommand\SN{S^{(N)}}
+\newcommand\XN{X^{(N)}}
+\newcommand\XtN{\tilde{X}^{(N)}}
+\newcommand\YN{Y^{(N)}}
+\newcommand\ZN{Z^{(N)}}
+\newcommand\MN{M^{(N)}}
+\newcommand\LN{L^{(N)}}
+\newcommand\fN{f^{(N)}}
+\newcommand\betaN{\beta^{(N)}}
+\newcommand\PsiN{\Psi^{(N)}}
+\newcommand\E{\mathcal{E}}
+\newcommand\N{\mathbb{N}}
+\newcommand\R{\mathbb{R}}
+\newcommand\Z{\mathbb{Z}}
+\newcommand\bm{\mathbf{m}}
+\newcommand\bM{\mathbf{M}}
+\newcommand\bx{\mathbf{x}}
+\newcommand\bc{\mathbf{c}}
+\newcommand\calT{\mathcal{T}}
+\newcommand\calV{\mathcal{V}}
+\newcommand\calL{\mathcal{L}}
+\newcommand\calC{\mathcal{C}}
+\newcommand\calF{\mathcal{F}}
+\newcommand\calP{\mathcal{P}}
+\newcommand\calS{\mathcal{S}}
+\newcommand\calB{\mathcal{B}}
+\newcommand\calA{\mathcal{A}}
+\newcommand\calN{\mathcal{N}}
+\newcommand\floor[1]{\left\lfloor#1\right\rfloor}
+\newcommand\var[1]{\mathrm{var}\left[#1\right]}
+\newcommand\svar[1]{\mathrm{var}[#1]}
+\newcommand\esp[1]{{\mathchoice{\besp{#1}}{\sesp{#1}}{\sesp{#1}}{\sesp{#1}}}}
+\newcommand\besp[1]{\mathbb{E}\left[#1\right]}
+\newcommand\sesp[1]{\mathbb{E}[#1]}
+\newcommand\espN[1]{{\mathchoice{\bespN{#1}}{\sespN{#1}}{\sespN{#1}}{\sespN{#1}}}}
+\newcommand\bespN[1]{\mathbf{E}^{(N)}\left[#1\right]}
+\newcommand\sespN[1]{\mathbf{E}^{(N)}[#1]}
+\newcommand\Proba[1]{{\mathchoice{\bProba{#1}}{\sProba{#1}}{\sProba{#1}}{\sProba{#1}}}} 
+\newcommand\bProba[1]{\mathbf{P}\left[#1\right]}
+\newcommand\sProba[1]{\mathbf{P}[#1]}
+\newcommand\norm[1]{{\mathchoice{\bnorm{#1}}{\snorm{#1}}{\snorm{#1}}{\snorm{#1}}}}
+\newcommand\bnorm[1]{\left\|#1\right\|}
+\newcommand\snorm[1]{\|#1\|}
+\newcommand\norminf[1]{\left\|#1\right\|_{\infty}}
+\newcommand\abs[1]{\left|#1\right|}
+\newcommand\Ind[1]{\mathbf{1}_{\{#1\}}}
+\newcommand\F{\mathcal{F}}
+\newcommand\dt{\frac{d}{dt}}
+\newcommand\pder[1]{\frac{\partial }{\partial#1}}
+\newcommand\red[1]{{\color{red}#1}}
+\newcommand\p[1]{\left(#1\right)}
+\newcommand\bbm{\mathbf{m}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand\proba[1]{\mathbb{P}\left(#1\right)}
+
+\newcommand\myComment[1]{ \pdfmargincomment[color=red]{#1}}
+\newcommand\TBC{\myComment{to be checked}}
+
+%\newtheorem{definition}{Definition}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{Lemma}
+
+\newtheorem{coro}{Corollary}
+
+% Copyright
+\copyrightyear{2017} 
+\acmYear{2017} 
+\setcopyright{rightsretained} 
+\acmConference{SIGMETRICS '17}{June 05-09, 2017}{Urbana-Champaign, IL,
+  USA}
+\acmDOI{10.1145/3078505.3078523}
+\acmISBN{978-1-4503-5032-7/17/06}
+
+\newcommand\githublink{\url{https://github.com/ngast/meanFieldAccuracy}}
+
+\title{Expected Values Estimated via Mean-Field Approximation are
+  1/N-Accurate}%
+\subtitle{Extended Abstract}%
+% \subtitlenote{The full version of the paper, including simulation code
+%   is available at \githublink}%
+\subtitlenote{Full version of the paper : \githublink{}
+  \cite{gast2016_1/N}.}
+
+\author{Nicolas Gast}
+%\authornote{Dr.~Trovato insisted his name be first.}
+\orcid{0000-0001-6884-8698}%
+\affiliation{%
+  \institution{Inria}%
+  \streetaddress{Univ. Grenoble Alpes, CNRS, LIG}%
+  \city{ Grenoble} %
+  \state{France} %
+  \postcode{F-38000}%
+}%
+\email{nicolas.gast@inria.fr}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+  In this paper, we study the accuracy of mean-field approximation.
+  We show that, under general conditions, the expectation of any
+  performance functional converges at rate $O(1/N)$ to its mean-field
+  approximation.  Our result applies for finite and
+  infinite-dimensional mean-field models.  We provide numerical
+  experiments that demonstrate that this rate of convergence is tight.
+  % and that illustrate the necessity of our conditions.  
+
+  % As an example,
+  % we apply our result to the classical two-choice model. By combining
+  % our theory with numerical experiments, we claim that, as the load
+  % $\rho$ goes to $1$, the average queue length of a two-choice system
+  % with $N$ servers is
+  % $\log_2\frac1{1-\rho} + \frac1{2N(1-\rho)} +O\big(\frac1{N^2}\big)$.
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10002944.10011123.10011674</concept_id>
+<concept_desc>General and reference~Performance</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10002950.10003648.10003700</concept_id>
+<concept_desc>Mathematics of computing~Stochastic processes</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10002950.10003648.10003688.10003689</concept_id>
+<concept_desc>Mathematics of computing~Queueing theory</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10002950.10003714.10003727.10003728</concept_id>
+<concept_desc>Mathematics of computing~Ordinary differential equations</concept_desc>
+<concept_significance>100</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{General and reference~Performance}
+\ccsdesc[500]{Mathematics of computing~Stochastic processes}
+\ccsdesc[300]{Mathematics of computing~Queueing theory}
+\ccsdesc[100]{Mathematics of computing~Ordinary differential equations}
+% We no longer use \terms command
+%\terms{Theory}
+
+\keywords{Mean-field approximation, queueing theory, accuracy of
+  approximation, supermarket model, power-of-two-choice}
+
+\maketitle
+
+\section{Introduction}
+
+Mean-field approximation is a powerful tool for studying systems
+composed of a large number of interacting objects. The idea of
+mean-field approximation is to replace a complex stochastic system by
+a simpler deterministic dynamical system.  This approximation is
+widely used to study the performance of computer-based systems.
+% A
+% typical example is the \emph{power of two-choices}: Mean-field
+% approximation has been used in
+% \cite{mitzenmacher1996power,vvedenskaya1996queueing} to show that
+% routing a task to the least loaded of two randomly sampled servers
+% significantly reduces the response time compared to a purely random
+% allocation.
+This approximation is known to be asymptotically exact for many
+systems, in which the fraction of objects in a given state $i$,
+$\XN_i$, converges at rate $O(1/\sqrt{N})$ to a deterministic quantity
+$x_i$, as the number of objects $N$ goes to infinity
+% : $\esp{\norm{\XN-x}} \approx C/\sqrt{N}$
+\cite{kurtz70,ying2016rate}.
+
+% This result is a like a central-limit-theorem for mean-field systems:
+% $\XN(t)$ is equal to $x(t)$ plus $1/\sqrt{N}$ times a Gaussian noise
+% \cite{kurtz70}. It was originally proven for finite time-horizon and
+% recently extended to stationary distributions in \cite{ying2016rate}.
+
+% Yet, we believe that Equation~\eqref{eq:1/sqrt{N}} does not fully
+% explain the accuracy of mean-field approximation. As an example, we
+% provide in Table~\ref{tab:power2} results obtained by simulation on
+% how the mean-field approximation is accurate for the power of
+% two-choices model of
+% \cite{mitzenmacher1996power,vvedenskaya1996queueing}. 
+
+In this paper, we show that, when one wants to estimate expected
+values, the rate of convergence is much faster. More precisely, we
+show that for a smooth function $h$, the expectation $\esp{h(\XN)}$
+converges at rate $1/N$ to its mean-field approximation $h(x)$:
+\begin{align}
+  \label{eq:1/N}
+  \abs{\esp{h(\XN)} - h(x)} = O\p{\frac1N}.
+\end{align}
+We show that this essentially holds for the transient regime as soon
+as the drift of the system is twice-differentiable. It holds for the
+stationary regime if in addition the differential equation has a
+unique stable point that is exponentially stable. We also exhibit an
+example that shows that when the drift of the system is only
+Lipschitz-continuous, the convergence can be slower.
+
+As an example, we study in detail the convergence rate of the
+classical power-of-two-choice model (\emph{a.k.a.} supermarket model)
+of \cite{mitzenmacher1996power,vvedenskaya1996queueing}. These papers
+show that, as the number of servers $N$ go to infinity, the average
+queue length goes to $m^{\infty}(\rho)=\Theta(\log 1/(1-\rho))$.%  which
+% is an exponential improvement compared to $1/(1-\rho)$ in the case of
+% purely random allocation.
+
+% routing an
+% incoming job to the shortest of two randomly sampled queues reduces
+% the average queue length : for a system with load $\rho\approx1$, 
+
+Our results show that an average value estimated via mean-field
+approximation is $1/N$-accurate.  In a queuing network such as the
+two-choice model, the average queue length can be expressed as
+$\sesp{h(\XN)}$.  Equation~\eqref{eq:1/N} shows that the average queue
+length converges at rate $O(1/N)$ to its mean-field approximation.  We
+provide numerical evidence that for this model, for any finite value
+of $N$, the average queue length is
+$ m^N(\rho) \approx m^{\infty}(\rho)+\frac{\rho^2}{2N(1-\rho)}$. We
+illustrate this in Table~\ref{tab:power2} where we report the average
+queue length for $\rho=0.9$. We observe that
+$m^{N}(0.9)\approx m^{\infty}(0.9)+4/N$.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Number of servers ($N$) & 10 & 100 & 1000 &$+\infty$\\\hline
+    Average queue length ($m^N$) &2.81&2.39&2.36& 2.35\\\hline
+    Error ($m^N-m^\infty$) & 0.45 & 0.039 & 0.004 & 0 \\\hline
+  \end{tabular}
+  \caption{Average queue length for the two-choice model. %  The value for $N=+\infty$ is the
+    % mean-field approximation.
+  }
+  \label{tab:power2}
+\end{table}
+
+% From a performance analysis perspective, one of the main insights
+% provided by our result is that for many mean-field models and
+% performance functions $h$, we have
+% \begin{align}
+%   \label{eq:C/N}
+%   \esp{h(\XN)} = h(x)+\frac{C}{N} + o\p{\frac1N}.
+% \end{align}
+
+
+% \paragraph*{Reproducibility} The code to reproduce the paper --
+% including simulations, figures and text -- is available at
+% \githublink. 
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{biblio}
+
+\end{document}
