@@ -7,7 +7,7 @@ ACM SIGMETRICS conference 2017.
 
 Full reference : Nicolas Gast. Expected Values Estimated via
 Mean-Field Approximation are 1/N-Accurate. Proceedings of ACM
-SIGMETRICS conference 2017. Champaign-Urbana, USA, June 6-8, 2017
+SIGMETRICS conference 2017. Urbana-Champaign, USA, June 6-8, 2017
 (SIGMETRICS’17).
 
 
@@ -30,4 +30,9 @@ To compile the simulator and re-generate all figures, just type
 make simulator
 make simulations
 ```
-Note that the directory `jsq2_simulate/results` and `jsq2_simulate/traj` contain simulation results that are not re-generated each time (in order to save time). 
+Note that the directory `jsq2_simulate/results` and `jsq2_simulate/traj` contain simulation results that are not re-generated each time (in order to save time). Removing these files and launching `make simulations` (or executing directely the "jupyter notebook" `jsq2_simulate/Rate of convergence two choice.ipynb`) will regenerate these files. This might take a while (~10h).
+
+
+## Extended abstract 
+
+An [extended abstract](https://github.com/ngast/meanFieldAccuracy/raw/master/sigmetrics_abstract.pdf) of the paper is also available. 
