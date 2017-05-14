@@ -10,6 +10,7 @@ Mean-Field Approximation are 1/N-Accurate. Proceedings of ACM
 SIGMETRICS conference 2017. Urbana-Champaign, USA, June 6-8, 2017
 (SIGMETRICS’17).
 
+Publisher version : https://github.com/ngast/meanFieldAccuracy/tags/finalVersion 
 
 # How to compile
 

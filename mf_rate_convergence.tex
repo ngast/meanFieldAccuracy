@@ -12,7 +12,7 @@
 
 \usepackage[subject={Todo},author={Nicolas}]{pdfcomment}
 
-\graphicspath{{}{simu/}{/Users/gast/boulot/QUANTICOL/svn-quanticol/WorkingPapers/bertinoro_WP1/simu/}{jsq2_simulate/}}
+\graphicspath{{}{simu/}{jsq2_simulate/}}
 
 \usepackage{hyperref}
 \definecolor{darkblue}{rgb}{0 0 .6}
@@ -55,7 +55,8 @@
 \newcommand\espN[1]{{\mathchoice{\bespN{#1}}{\sespN{#1}}{\sespN{#1}}{\sespN{#1}}}}
 \newcommand\bespN[1]{\mathbf{E}^{(N)}\left[#1\right]}
 \newcommand\sespN[1]{\mathbf{E}^{(N)}[#1]}
-\newcommand\Proba[1]{\mathbf{P}\left[#1\right]}
+\newcommand\Proba[1]{{\mathchoice{\bProba{#1}}{\sProba{#1}}{\sProba{#1}}{\sProba{#1}}}} 
+\newcommand\bProba[1]{\mathbf{P}\left[#1\right]}
 \newcommand\sProba[1]{\mathbf{P}[#1]}
 \newcommand\norm[1]{{\mathchoice{\bnorm{#1}}{\snorm{#1}}{\snorm{#1}}{\snorm{#1}}}}
 \newcommand\bnorm[1]{\left\|#1\right\|}
@@ -84,18 +85,26 @@
 % Copyright
 \acmYear{2017}
 \copyrightyear{2017}
-\setcopyright{rightsretained}
-\acmConference[SIGMETRICS'17]{ACM SIGMETRICS conference}{June 6-8,
-  2017}{Champaign-Urbana, USA}
-\acmISBN{}
-\acmDOI{}
-\acmPrice{}
+\setcopyright{acmlicensed}
+\acmJournal{POMACS}
+\acmYear{2017} \acmVolume{1} \acmNumber{1} \acmArticle{16} \acmMonth{6}
+\acmDOI{http://dx.doi.org/10.1145/3084454}
+\acmISBN{978-1-4503-5032-7/17/06}
 
 
 
 \title{Expected Values Estimated via Mean-Field Approximation are
   1/N-Accurate}
 \author{Nicolas Gast}
+\orcid{0000-0001-6884-8698}%
+\affiliation{%
+  \institution{Inria}%
+  \streetaddress{Univ. Grenoble Alpes, CNRS, LIG}%
+  \city{ Grenoble} %
+  \state{France} %
+  \postcode{F-38000}%
+}%
+\email{nicolas.gast@inria.fr}
 \date{\today}
 
 \begin{document}
@@ -126,6 +135,42 @@
   $\log_2\frac1{1-\rho} + \frac1{2N(1-\rho)}
   +O\big(\frac1{N^2}\big)$.
 \end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10002944.10011123.10011674</concept_id>
+<concept_desc>General and reference~Performance</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10002950.10003648.10003700</concept_id>
+<concept_desc>Mathematics of computing~Stochastic processes</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10002950.10003648.10003688.10003689</concept_id>
+<concept_desc>Mathematics of computing~Queueing theory</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10002950.10003714.10003727.10003728</concept_id>
+<concept_desc>Mathematics of computing~Ordinary differential equations</concept_desc>
+<concept_significance>100</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{General and reference~Performance}
+\ccsdesc[500]{Mathematics of computing~Stochastic processes}
+\ccsdesc[300]{Mathematics of computing~Queueing theory}
+\ccsdesc[100]{Mathematics of computing~Ordinary differential equations}
+% We no longer use \terms command
+%\terms{Theory}
+
+\keywords{Mean-field approximation; queueing theory; accuracy of
+  approximation; supermarket model; power-of-two-choice}
+
 
 \maketitle
 
@@ -830,14 +875,14 @@ the exponent $(\alpha+1)/2$ obtained in Theorem~\ref{th:Holder} for
 the transient regime.  A natural question is whether the rate of
 convergence $O(1/\sqrt{N}^{1+\alpha})$ of Theorem~\ref{th:Holder}
 carries over to the stationary regime. We conjecture that it is the
-case. 
-Yet, neither the method used to prove Theorem~\ref{th:stationary} nor
-the one used for Theorem~\ref{th:Holder} can be modified to show
-this. The former because it involves the convergence of the generator
-that need the derivative of the drift to be $\alpha$-Hölder continuous
-in order to get an $O(N^{-\alpha})$ convergence. The latter because
-the proof uses Gronwall's argument which leads to a constant $e^{Ht}$
-that explodes with time.
+case.  Yet, neither the method used to prove
+Theorem~\ref{th:stationary} nor the one used for
+Theorem~\ref{th:Holder} can be modified to show this. The former
+because it involves the convergence of the generator that needs an
+$\alpha$-Hölder continuous derivative in order to get an
+$O(N^{-\alpha})$ convergence. The latter because the proof uses
+Gronwall's argument which leads to a constant $e^{Ht}$ that explodes
+with time.
 
 
 
@@ -972,7 +1017,7 @@ nor in the stationary regime.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\linewidth]{exponent_birthDeath}
+  \includegraphics[width=0.90\linewidth]{exponent_birthDeath}
   \caption{Estimation of the exponent of the rate of convergence
     $O(N^{-\beta})$. For a drift that has a derivative that is
     $\alpha$-Hölder continuous, this exponent is $(1+\alpha)/2$ for
@@ -1053,8 +1098,8 @@ The only difficulty for applying the results of
 Section~\ref{sec:convergence} is that the queue sizes are unbounded
 and that therefore, $\XN$ lives in an infinite-dimensional space. In
 the following, we equip the space of infinite sequences with a
-weighted $\ell_1$-norm with a carefully chosen weight sequence $w$. We
-denote the norm of an infinite sequence $x$ by $\norm{x}_w$:
+weighted $\ell_1$-norm with a carefully chosen sequence $w$. We denote
+the norm of an infinite sequence $x$ by $\norm{x}_w$:
 \begin{align*}
   \norm{x}_w=\sum_{i=1}^\infty w_i\abs{x_i}.
 \end{align*}
@@ -1092,9 +1137,9 @@ the function $h(x)=x_i$ which is bounded by $1$. This shows:
 This result sharpens the result of \cite{luczak2007asymptotic} in
 which a convergence rate of $O(\log N/N)$ was obtained. 
 
-The bound provided by Equation~\eqref{eq:bound_2c} implies that for
-any $h$ that grows at most linearly, $\sespN{h(\XN)}$ also converges
-to $h(\pi)$ at rate $O(1/N)$.
+Equation~\eqref{eq:bound_2c} implies that for any $h$ that grows at
+most linearly, $\sespN{h(\XN)}$ converges to $h(\pi)$ at rate
+$O(1/N)$.
 \begin{coro}
   \label{coro:two-choice}
   Let $h:\E\to\R$ be a twice-differentiable function. Assume that
@@ -1178,7 +1223,7 @@ than $1$ hour for $N=1000$.
 \begin{figure}[t]
   \centering
   \begin{tabular}{@{}c@{}}
-    \includegraphics[width=\linewidth]{2choice_convergence_rho90}\\
+    \includegraphics[width=0.90\linewidth]{2choice_convergence_rho90}\\
   \end{tabular}
   \caption{Two-choice model: convergence of the marginal law of one
     server. We plot $N(p^N_i-\pi_i)$ as a function of $N$ for various
@@ -1199,8 +1244,8 @@ symmetric, $p^N_i$ equals
 By Theorem~\ref{th:two-choice}, the difference between $p^N_i$ and
 $\pi_i$ is of order $O(1/N)$. In Figure~\ref{fig:2-choice_x}, we
 display the quantity $N(p^N_i-\pi_i)$ as a function of $N$. We report
-the values for $\rho=0.9$ and $i\in\{2,3,4,5\}$. We observe that the
-quantity $N(p^N_i-\pi_i)$ converges rapidly to a constant value. 
+the values for $\rho=0.9$ and $i\in\{2,3,4,5\}$. The quantity
+$N(p^N_i-\pi_i)$ converges rapidly to a constant value.
 
 We also performed simulations for other values of $\rho\in[0.5,0.99]$
 for which we observe similar behavior.  This suggests that for each
@@ -1222,7 +1267,7 @@ mean-field approximation.
 
 By Corollary~\ref{coro:two-choice},
 $m^N(\rho) = m^\infty(\rho)+O(1/N)$. Equation~\eqref{eq:c_i_rho}
-suggests that for each $\rho$, there exists a constant
+suggests that there exists a constant
 $d(\rho)=\sum_{i\ge1}c_{i,\rho}$ such that
 \begin{align}
   \label{eq:improved_mf}
@@ -1235,7 +1280,7 @@ quickly. This stabilization is slower as $\rho$ approaches $1$.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\linewidth]{2choice_convergence_mean_noLog}
+  \includegraphics[width=0.90\linewidth]{2choice_convergence_mean_noLog}
   \caption{Two-choice model: convergence of the average queue length
     $m^N$. We plot $N(m^N-m^{\infty})$ as a function of $N$ for
     various values of $\rho$.  }
@@ -1285,8 +1330,7 @@ evolves with $\rho$, we plot in Figure~\ref{fig:C_rho}(a) an estimate
 of the quantity $d(\rho)$ as a function of $\rho$. Our estimate of
 $d(\rho)$ is the experimental value for $N=1000$,
 $1000(m^{1000}(\rho)-m^\infty(\rho))$.  We also plot the function
-$\rho^2/(2-2\rho)$ which grows as $1/(2-2\rho)$ as $\rho$ goes to $1$.
-Numerically, we observe that $\rho^2/(2-2\rho)$ fits very well the
+$\rho^2/(2-2\rho)$.  We observe that this function fits very well the
 values for $\rho\in[0.5;0.99]$. To confirm this, we also plot
 $d(\rho)(1-\rho)/\rho^2$ as a function of $\rho$ in
 Figure~\ref{fig:C_rho}(b). This figure suggests that it converges to
@@ -1377,7 +1421,7 @@ finite dimensional sets.
   For any $h\in C^{1}(\E,\R)$, we have
   \begin{align}
     \esp{\abs{h(\XN(t))-h(\Phi_tx)}} \le
-    \int_0^t\sup_{x\in\E}|(\Lambda-\LN)h(\Phi_sx)|ds.
+    \int_0^t\!\sup_{x\in\E}|(\Lambda-\LN)h(\Phi_sx)|ds.
     \label{eq:lem_TK}
   \end{align}
 \end{lemma}
@@ -1402,8 +1446,8 @@ finite dimensional sets.
   \end{align}
   For any function $h'$, one has
   \begin{align*}
-    \abs{\PsiN_{t-s}h'x} &= \abs{\espN{h'(\XN(t-s))\mid \XN(0)=x}} \\
-                        &\le\sup_{x\in\E} \abs{h'(x)}. 
+    \abs{\PsiN_{t-s}h'x} &= \abs{\espN{h'(\XN(t-s))\mid \XN(0)=x}}
+                         \le\sup_{x\in\E} \abs{h'(x)}. 
   \end{align*}
   This shows that for any $h$ and any $x$: 
   \begin{align*}
