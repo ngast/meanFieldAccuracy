@@ -103,7 +103,7 @@
 
 \newcommand\newcite[3]{\item[#1] \textbf{#2} -- #3}
 \begin{frame}{Mean-field approximation is widely used in our
-    community}
+    community}{A few examples of SIGMETRICS papers\dots}
   
   \footnotesize 
   \begin{itemize}
@@ -183,11 +183,11 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 \end{frame}
 
 \begin{frame}{How accurate is mean-field approximation?}
-
+  \pause
   \begin{center}
     
     \mpage{.45}{
-      \begin{exampleblock}{Theorem (Kurtz 70\dots \uncover<3->{Ying 16}) }
+      \begin{exampleblock}{Theorem (Kurtz 70\dots Ying 16) }
         \centering $\displaystyle \XN(t) \approx x(t) \red{+ \frac1{\sqrt{N}} G_t}$
       \end{exampleblock}
     }
@@ -198,9 +198,9 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \begin{center}
     \mpage{.7}{
     \begin{tikzpicture}
-      \uncover<2>{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N10}};}
-      \uncover<3>{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N100}};}
-      \uncover<4->{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N1000}};}
+      \uncover<3>{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N10}};}
+      \uncover<4>{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N100}};}
+      \uncover<5->{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N1000}};}
        \draw[->] (-3.4,-2.1) -- (-3.4,3);
        \draw[->] (-3.4,-2.1) -- (4.5,-2.1);
        \node[fill=white] at (0,2.9) {$X_3(t)$ -- Fraction of servers with $3$ jobs};
@@ -210,8 +210,9 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \end{center}
 \end{frame}
 
-\begin{frame}{In practice, how accurate is mean-field approximation?}
-  {Can we use the approximation for $N=1000$? $N=100$? $N=10$?}
+\begin{frame}{How accurate is mean-field for \red{expected values}?
+  }{Can we use the approximation for $N=1000$? 
+    $N=100$? $N=10$?} 
   
   \begin{table}[ht]
     \centering
@@ -231,8 +232,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
     \begin{enumerate}
     \item We show that under very general conditions, the error is in
       $O(1/N)$
-    \item We show that for that, the drift needs to be
-      twice-differentiable. 
+    \item In addition to previous work, the drift needs to be
+      twice-differentiable.
     \item We study numerically the power-of-two choice. 
     \end{enumerate}
   }
@@ -527,22 +528,18 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 \begin{frame}{Extension and open questions}
   \begin{itemize}
   \item Multistable equilibria. 
-  \item Can we go to the order $O(1/N^2)$? It is useful? 
-  \item I assumed twice differentiable (and it is needed). 
-    \begin{itemize}
-    \item Can we do something in between for the steady-state? 
-% For Lipschitz-continuous, is the convergence rate
-%       $O(1/\sqrt{N})$?
-    \end{itemize}
   \item Non-homogeneous population. 
     \begin{itemize}
     \item \emph{e.g.}, caching 
     \end{itemize}
+  % \item Can we go to the order $O(1/N^2)$? It is useful? 
+  \item Technical conditions (ex: twice-differentiability or
+    Lipschitz-continuity).
   \end{itemize}
   
-  \bigskip
+  \bigskip\bigskip
   
-  Paper (and slides) are \red{reproducible}:
+  Paper, simulations (and slides) are \red{reproducible}:
   \url{https://github.com/ngast/meanFieldAccuracy}
 \end{frame}
 
