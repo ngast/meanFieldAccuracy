@@ -102,39 +102,6 @@
 
 
 \newcommand\newcite[3]{\item[#1] \textbf{#2} -- #3}
-\begin{frame}{Mean-field approximation is widely used in our
-    community}{A few examples of SIGMETRICS papers\dots}
-  
-  \footnotesize 
-  \begin{itemize}
-  \newcite{2016}{ Asymptotics of Insensitive Load Balancing and Blocking
-    Phases}{Jonckheere - Prabhu}
-  \newcite{2016}{ On the Approximation Error of Mean-Field Models}{Ying}
-  \newcite{2015}{ Power of d Choices for Large-Scale Bin Packing: A Loss
-    Model}{Xie et al} 
-  \newcite{2015}{ Transient and Steady-state Regime of a Family of
-    List-based Cache Replacement Algorithms}{Gast, Van Houdt} 
-  \newcite{2013}{  Queueing system topologies with limited
-    flexibility.}{Tsitsiklis, Xu}
-  \newcite{2013}{ A mean field model for a class of garbage collection
-    algorithms in flash-based solid state drives.}{Van Houdt}
-  \newcite{2012}{ Fluid limit of an asynchronous optical packet switch
-    with shared per link full range wavelength conversion.}{Van Houdt,
-    Bortolussi}
-
-  \newcite{2011}{ On the power of (even a little) centralization in
-    distributed processing. }
-  \newcite{2010}{ Randomized load balancing with general service time
-    distributions.}{Bramson et al.}
-  \newcite{2010}{ Incentivizing peer-assisted services: a fluid shapley
-    value approach.}{Misra et al}
-  \newcite{2010}{ A mean field model of work stealing in large-scale
-    systems.}{Gast, Gaujal} 
-  \newcite{2009}{
-The age of gossip: spatial mean field regime.}{Chaintreau et al.}
-\item[$\vdots$~~]
-  \end{itemize}
-\end{frame}
 
 \newcommand\object[1]{\node[fill] at (#1) {~};}
 \begin{frame}{What is mean-field approximation ?}
@@ -180,6 +147,40 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \end{tabular}
   
   
+\end{frame}
+
+\begin{frame}{Mean-field approximation is widely used in our
+    community}{A few examples of SIGMETRICS papers\dots}
+  
+  \footnotesize 
+  \begin{itemize}
+  \newcite{2016}{ Asymptotics of Insensitive Load Balancing and Blocking
+    Phases}{Jonckheere - Prabhu}
+  \newcite{2016}{ On the Approximation Error of Mean-Field Models}{Ying}
+  \newcite{2015}{ Power of d Choices for Large-Scale Bin Packing: A Loss
+    Model}{Xie et al} 
+  \newcite{2015}{ Transient and Steady-state Regime of a Family of
+    List-based Cache Replacement Algorithms}{Gast, Van Houdt} 
+  \newcite{2013}{  Queueing system topologies with limited
+    flexibility.}{Tsitsiklis, Xu}
+  \newcite{2013}{ A mean field model for a class of garbage collection
+    algorithms in flash-based solid state drives.}{Van Houdt}
+  \newcite{2012}{ Fluid limit of an asynchronous optical packet switch
+    with shared per link full range wavelength conversion.}{Van Houdt,
+    Bortolussi}
+
+  \newcite{2011}{ On the power of (even a little) centralization in
+    distributed processing. }
+  \newcite{2010}{ Randomized load balancing with general service time
+    distributions.}{Bramson et al.}
+  \newcite{2010}{ Incentivizing peer-assisted services: a fluid shapley
+    value approach.}{Misra et al}
+  \newcite{2010}{ A mean field model of work stealing in large-scale
+    systems.}{Gast, Gaujal} 
+  \newcite{2009}{
+The age of gossip: spatial mean field regime.}{Chaintreau et al.}
+\item[$\vdots$~~]
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{How accurate is mean-field approximation?}
@@ -277,7 +278,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
     If $f$ is Lipschitz-continuous with constant $L$, then for any
     fixed $T$: 
     \begin{align*}
-      \sup_{t<T}\norm{X^N(t) - \Phi_t X^N(0)} = O(1/\sqrt{N}) \qquad\qquad (\lim_{N\to\infty}\cdot=0).
+      \sup_{t<T}\norm{X^N(t) - \Phi_t X^N(0)} = O(1/\sqrt{N}) \qquad \xrightarrow{N\to\infty}0.
     \end{align*}
   \end{theorem}
 
@@ -295,7 +296,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
     If $f$ is Lipschitz-continuous with constant $L$, then for any
     fixed $T$: 
     \begin{align*}
-      \esp{\norm{X^N - x^*}} = O(1/\sqrt{N}) \qquad\qquad (\lim_{N\to\infty}\cdot=0).
+      \esp{\norm{X^N - x^*}} = O(1/\sqrt{N}) \qquad \xrightarrow{N\to\infty}0.
     \end{align*}    
   \end{theorem}
 
@@ -340,8 +341,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 
 
 \begin{frame}{Steady-state analysis}
-  We say that $\dot{x}=f(x)$ has an exponentially stable attractor
-  $x^*$ if for any solution: 
+  $\dot{x}=f(x)$ has an exponentially stable attractor $x^*$ if for
+  any solution:
   \begin{align*}
     \norm{x(t)-x^*} \le C e^{-\alpha t}\norm{x(0)-x^*}.  
   \end{align*}
@@ -373,13 +374,13 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 
   \textbf{2.} \red{Stein's method} : 
   \begin{align*}
-    \esp{h(X^N)-h(x^*)} &\esp{(\Lambda-\LN) (Gh) X^N},
+    \esp{h(X^N)-h(x^*)} = \esp{(\Lambda-\LN) (Gh) X^N},
   \end{align*}
   where $Gh(x) = \int_0^\infty (h(\Phi_tx) - h(x^*))dt$
   satisfies $(x) - h(x^*) = \Lambda (Gh) x$. 
   \bigskip
   
-  \textbf{3.} \red{Perturbation theory}: $D^2(Gh)$ is
+  \textbf{3.} \red{Perturbation theory} shows that $D^2(Gh)$ is
   twice-differentiable.
 \end{frame}
 
@@ -504,7 +505,10 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
     \esp{X^N} \approx x + \frac{C}{N},
   \end{align*}
   \begin{itemize}
-  \item $C$ can be computed for one $N$ and then interpolated. 
+  \item We can estimate $C$
+    by simulating one value of $N$ (e.g. $N=100$).
+  \item We use this $C$ to deduce the performance for other values of
+    $N$.  
   \end{itemize}
   \bigskip
   
@@ -514,7 +518,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 \begin{frame}{Does it always work?}
   \begin{itemize}
   \item Works for the model of Kurtz
-  \item Also works for the ``Benaim-Le Boudec'' by using uniformization
+  \item Also works for the model of \emph{Benaim-Le Boudec 08} by
+    using uniformization 
   \end{itemize}
 
   \bigskip
@@ -527,14 +532,15 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 
 \begin{frame}{Extension and open questions}
   \begin{itemize}
-  \item Multistable equilibria. 
+  \item Heavy-traffic regime 
+  \item Multiple stable equilibria. 
   \item Non-homogeneous population. 
     \begin{itemize}
     \item \emph{e.g.}, caching 
     \end{itemize}
   % \item Can we go to the order $O(1/N^2)$? It is useful? 
-  \item Technical conditions (ex: twice-differentiability or
-    Lipschitz-continuity).
+  % \item Technical conditions (ex: twice-differentiability or
+  %   Lipschitz-continuity).
   \end{itemize}
   
   \bigskip\bigskip
