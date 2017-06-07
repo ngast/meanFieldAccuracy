@@ -125,7 +125,7 @@
     }
   \end{center}
   
-  \pause\bigskip
+  \bigskip
 
   \begin{tabular}{cc}
     \mpage{.4}{
@@ -150,30 +150,29 @@
 \end{frame}
 
 \begin{frame}{Mean-field approximation is widely used in our
-    community}{A few examples of SIGMETRICS papers\dots}
+    community}{A few examples of recent SIGMETRICS papers\dots}
   
   \footnotesize 
   \begin{itemize}
-  \newcite{2016}{ Asymptotics of Insensitive Load Balancing and Blocking
+  \newcite{2016}{ Asymptotics of Insensitive \red{Load Balancing} and Blocking
     Phases}{Jonckheere - Prabhu}
   \newcite{2016}{ On the Approximation Error of Mean-Field Models}{Ying}
-  \newcite{2015}{ Power of d Choices for Large-Scale Bin Packing: A Loss
+  \newcite{2015}{ \red{Power of d Choices} for Large-Scale Bin Packing: A Loss
     Model}{Xie et al} 
   \newcite{2015}{ Transient and Steady-state Regime of a Family of
-    List-based Cache Replacement Algorithms}{Gast, Van Houdt} 
+    List-based \red{Cache} Replacement Algorithms}{Gast, Van Houdt} 
   \newcite{2013}{  Queueing system topologies with limited
     flexibility.}{Tsitsiklis, Xu}
   \newcite{2013}{ A mean field model for a class of garbage collection
-    algorithms in flash-based solid state drives.}{Van Houdt}
-  \newcite{2012}{ Fluid limit of an asynchronous optical packet switch
-    with shared per link full range wavelength conversion.}{Van Houdt,
+    algorithms in flash-based \red{solid state drives}.}{Van Houdt}
+  \newcite{2012}{ Fluid limit of an asynchronous \red{optical packet switch} with shared per link full range wavelength conversion.}{Van Houdt,
     Bortolussi}
 
   \newcite{2011}{ On the power of (even a little) centralization in
     distributed processing. }
   \newcite{2010}{ Randomized load balancing with general service time
     distributions.}{Bramson et al.}
-  \newcite{2010}{ Incentivizing peer-assisted services: a fluid shapley
+  \newcite{2010}{ \red{Incentivizing} peer-assisted services: a fluid shapley
     value approach.}{Misra et al}
   \newcite{2010}{ A mean field model of work stealing in large-scale
     systems.}{Gast, Gaujal} 
@@ -183,7 +182,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{How accurate is mean-field approximation?}
+\begin{frame}{\uncover<2->{\red{In theory},} how accurate is mean-field
+    approximation?} 
   \pause
   \begin{center}
     
@@ -202,8 +202,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
       \uncover<3>{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N10}};}
       \uncover<4>{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N100}};}
       \uncover<5->{\node at (0,0) {\includegraphics[width=\linewidth]{traj_rho80_N1000}};}
-       \draw[->] (-3.4,-2.1) -- (-3.4,3);
-       \draw[->] (-3.4,-2.1) -- (4.5,-2.1);
+       \draw[->] (-3.5,-2.1) -- (-3.5,3);
+       \draw[->] (-3.5,-2.1) -- (4.5,-2.1);
        \node[fill=white] at (0,2.9) {$X_3(t)$ -- Fraction of servers with $3$ jobs};
        \node at (5,-2) {Time};
    \end{tikzpicture}
@@ -211,8 +211,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \end{center}
 \end{frame}
 
-\begin{frame}{How accurate is mean-field for \red{expected values}?
-  }{Can we use the approximation for $N=1000$? 
+\begin{frame}{\red{In practice}, how accurate is mean-field
+    approximation?}{Can we use the approximation for $N=1000$?  
     $N=100$? $N=10$?} 
   
   \begin{table}[ht]
@@ -220,8 +220,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
     \begin{tabular}{|c|c|c|c|c|c|}
       \hline $N$&10&100&1000&$\infty$\\\hline
       Average queue length (simulation) & 2.8040	&2.3931	&2.3567	&2.3527\\%
-      \only<1>{&&&&}\only<2->{Error of mean-field&      0.4513	&0.0404
-                                        &0.0040 &0}\\%
+      \only<1>{&&&&}\only<2->{Error of mean-field&      \red{0.4513}	&\red{0.0404}
+                                        &\red{0.0040} &0}\\%
       \noalign{}\hline\noalign{}
     \end{tabular}    
     \caption{Two-choice model with $\rho=0.9$}
@@ -231,8 +231,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \uncover<3->{
     Contributions : 
     \begin{enumerate}
-    \item We show that under very general conditions, the error is in
-      $O(1/N)$
+    \item We show that, for \red{expected values}, the error of m-f is
+      $O(1/N)$ under very general conditions
     \item In addition to previous work, the drift needs to be
       twice-differentiable.
     \item We study numerically the power-of-two choice. 
@@ -247,7 +247,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \tableofcontents
 \end{frame}
 
-\section{The Kurtz's Population Model : Classical Convergence Results}
+\section{The Model (Kurtz's DDPP) and the Classical Convergence Results}
 
 \begin{frame}{\uncover<2>{\red{Population}} CTMC}{\uncover<2>{Density
       dependent population process (70s)}} 
@@ -291,7 +291,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 
 \begin{frame}{Stationary regime}
   If the ODE $\dot{x}=f(x)$ has a unique fixed point $x^*$ that is
-  exponentially stable, then:
+  exponentially stable, then:\bigskip
   \begin{theorem}[Ying 2016]
     If $f$ is Lipschitz-continuous with constant $L$, then for any
     fixed $T$: 
@@ -300,8 +300,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
     \end{align*}    
   \end{theorem}
 
-  (the uniqueness of the fixed point is not sufficient, see Benaim-Le
-  Boudec 2008). 
+  \bigskip Remark : The uniqueness of the fixed point is not
+  sufficient, see Benaim-Le Boudec 2008.
 \end{frame}
 
 
@@ -377,7 +377,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
     \esp{h(X^N)-h(x^*)} = \esp{(\Lambda-\LN) (Gh) X^N},
   \end{align*}
   where $Gh(x) = \int_0^\infty (h(\Phi_tx) - h(x^*))dt$
-  satisfies $(x) - h(x^*) = \Lambda (Gh) x$. 
+  satisfies $h(x) - h(x^*) = \Lambda (Gh) x$. 
   \bigskip
   
   \textbf{3.} \red{Perturbation theory} shows that $D^2(Gh)$ is
@@ -385,7 +385,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 \end{frame}
 
 
-\section{Example: two-choice model}
+\section{Application Example: Two-Choice Model}
 
 \begin{frame}{The two choice model\footnote{\tiny This model or
       variants have been heavily studied {\tiny (Vvedenskaya 96,
@@ -412,11 +412,14 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   $\norm{x}_w=\sum_{i=1}^\infty w_i\abs{x_i}<\infty$. 
 
   \begin{itemize}
-  \item Transitions : easy
-  \item Regularity of the drift : easy
-  \item Unique attractor : mitzenmacher 98
-  \item Stationary measure concentrates on a bounded set : coupling
-    argument : 2-choice $\ll$ 1-choice. 
+  \item Transitions : \green{easy}
+  \item Regularity of the drift : \green{easy}
+  \item Unique attractor : \red{not easy} (mitzenmacher 98),
+    exponentially stable 
+    : \green{relatively easy} (mitzenmacher 98). 
+  \item Stationary measure concentrates on a bounded set :
+    \green{relatively easy} (Turner 98) coupling argument : 2-choice
+    $\ll$ 1-choice.
   \end{itemize}
 \end{frame}
 
@@ -424,7 +427,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 \begin{frame}{The power of two-choice}
   
   
-  Our theory guarantees that the average queue length satisfies:
+  Our theorem guarantees that the average queue length satisfies:
   \begin{align*}
     m^N(\rho) = m^{\infty}(\rho) + O(1/N),
   \end{align*}
@@ -433,15 +436,16 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
 
   \pause\bigskip 
   By simulation, we observe that
-  $N(m^N(\rho)-m^{\infty})=d(\rho)\approx\frac{\rho^2}{2(1-\rho)}$
-  
+  $N(m^N(\rho)-m^{\infty})\to d(\rho)\approx\frac{\rho^2}{2(1-\rho)}$
+  \bigskip
 
   \begin{table}[t]
     \centering
-    \begin{tabular}{@{}|@{}c@{}|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|}
       \hline
       $N$
-      &$  10$  &$  20$  &$  30$  &$  50$ & $+\infty$  \\\hline $m^N(\rho)$
+      &$  10$  &$  20$  &$  30$  &$  50$ & $+\infty$  \\\hline
+      $m^N(\rho)$ [simulation]
       &$2.804$ &$2.566$ &$2.491$ &$2.434$&-- \\\hline $m^\infty(\rho)+\frac{\rho^2}{2N(1-\rho)}$ 
       &$2.758$ &$2.555$ &$2.488$ &$2.434$&$2.353$ \\
       \hline
@@ -507,7 +511,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \begin{itemize}
   \item We can estimate $C$
     by simulating one value of $N$ (e.g. $N=100$).
-  \item We use this $C$ to deduce the performance for other values of
+  \item We can use this $C$ to deduce the performance for other values of
     $N$.  
   \end{itemize}
   \bigskip
@@ -523,7 +527,8 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \end{itemize}
 
   \bigskip
-  But: it requires the drift to be \red{twice-differentiable}. 
+  But: it requires the drift to be \red{twice-differentiable} (or to
+  have a Lipschitz-continuous derivative)
   \begin{itemize}
   \item (see counter-example on the paper)
   \end{itemize}
@@ -534,10 +539,7 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \begin{itemize}
   \item Heavy-traffic regime 
   \item Multiple stable equilibria. 
-  \item Non-homogeneous population. 
-    \begin{itemize}
-    \item \emph{e.g.}, caching 
-    \end{itemize}
+  \item Non-homogeneous population, \emph{e.g.}, caching
   % \item Can we go to the order $O(1/N^2)$? It is useful? 
   % \item Technical conditions (ex: twice-differentiability or
   %   Lipschitz-continuity).
@@ -546,7 +548,9 @@ The age of gossip: spatial mean field regime.}{Chaintreau et al.}
   \bigskip\bigskip
   
   Paper, simulations (and slides) are \red{reproducible}:
-  \url{https://github.com/ngast/meanFieldAccuracy}
+  \begin{center}
+    \url{https://github.com/ngast/meanFieldAccuracy}
+  \end{center}
 \end{frame}
 
 \appendix
